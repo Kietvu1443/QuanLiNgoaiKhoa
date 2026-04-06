@@ -33,20 +33,20 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
 
   return (
     <div>
-      <TopAppBar title="Hoat dong" />
+      <TopAppBar title="Hoạt động" />
       <main className="pt-24 pb-32 px-6 max-w-5xl mx-auto">
         <section className="mb-6 p-6 bg-primary-container rounded-xl text-on-primary">
-          <p className="text-sm opacity-90">Xin chao</p>
+          <p className="text-sm opacity-90">Xin chào</p>
           <h2 className="font-headline text-2xl font-bold">{user?.student_code || 'student'}</h2>
         </section>
 
         {user?.role === 'admin' ? (
           <section className="mb-8 flex gap-3 flex-wrap">
             <button onClick={onOpenCreateActivity} className="px-5 py-3 bg-primary text-on-primary rounded-full font-semibold" type="button">
-              Tao hoat dong
+              Tạo hoạt động
             </button>
             <button onClick={onOpenCreateQr} className="px-5 py-3 bg-secondary-container text-on-secondary-container rounded-full font-semibold" type="button">
-              Tao QR
+              Tạo QR
             </button>
           </section>
         ) : null}
@@ -65,14 +65,14 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
                   {new Date(item.start_time).toLocaleString()} - {new Date(item.end_time).toLocaleString()}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-primary font-bold">+{item.points} diem</span>
+                  <span className="text-primary font-bold">+{item.points} Điểm</span>
                   {user?.role === 'admin' ? null : (
                     <button
                       onClick={() => registerActivity(item.id)}
                       className="px-4 py-2 bg-primary text-on-primary rounded-full text-sm font-semibold"
                       type="button"
                     >
-                      Dang ky
+                      Đăng kí
                     </button>
                   )}
                 </div>

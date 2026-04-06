@@ -25,9 +25,9 @@ export default function CreateActivityPage({ onBack }) {
 
     try {
       await api.post('/activities', form);
-      setMessage('Tao hoat dong thanh cong');
+      setMessage('Tạo hoạt động thành công');
     } catch (error) {
-      setMessage(error.response?.data?.message || 'Tao hoat dong that bai');
+      setMessage(error.response?.data?.message || 'Tạo hoạt động thất bại');
     } finally {
       setLoading(false);
     }
@@ -36,7 +36,7 @@ export default function CreateActivityPage({ onBack }) {
   return (
     <main className="pt-10 pb-32 px-6 max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-headline text-2xl font-bold">Tao hoat dong</h1>
+        <h1 className="font-headline text-2xl font-bold">Tạo hoạt động</h1>
         <button onClick={onBack} type="button" className="px-4 py-2 rounded-full bg-surface-container-low">
           Quay lai
         </button>
@@ -59,7 +59,7 @@ export default function CreateActivityPage({ onBack }) {
         <input type="number" min="0" className="w-full px-4 py-3 bg-surface-container-low rounded-xl" value={form.points} onChange={(e) => updateField('points', e.target.value)} />
 
         <button type="submit" disabled={loading} className="w-full py-3 bg-primary text-on-primary rounded-full font-bold">
-          {loading ? 'Dang tao...' : 'Tao hoat dong'}
+          {loading ? 'Đang tạo...' : 'Tạo hoạt động'}
         </button>
 
         {message ? <p className="text-sm text-primary">{message}</p> : null}

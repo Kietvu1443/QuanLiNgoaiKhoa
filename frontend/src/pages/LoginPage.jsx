@@ -29,13 +29,13 @@ export default function LoginPage({ onLogin, onGoRegister }) {
   return (
     <main className="bg-surface min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-surface-container-lowest rounded-[2rem] p-8 shadow-[0_32px_64px_-16px_rgba(0,52,43,0.08)]">
-        <h1 className="font-headline font-bold text-3xl text-on-surface mb-2">Chao mung tro lai</h1>
-        <p className="text-on-surface-variant text-sm mb-8">Dang nhap de tiep tuc diem danh hoat dong.</p>
+        <h1 className="font-headline font-bold text-3xl text-on-surface mb-2">Chào mừng trở lại!</h1>
+        <p className="text-on-surface-variant text-sm mb-8">Đăng nhập để truy cập vào giao diện hoạt động.</p>
 
         <form className="space-y-5" onSubmit={handleSubmit}>
           <div>
             <label className="block text-xs font-semibold text-primary uppercase tracking-widest mb-2" htmlFor="student_code">
-              Ma so sinh vien
+              Mã số sinh viên
             </label>
             <input
               id="student_code"
@@ -48,7 +48,7 @@ export default function LoginPage({ onLogin, onGoRegister }) {
 
           <div>
             <label className="block text-xs font-semibold text-primary uppercase tracking-widest mb-2" htmlFor="password">
-              Mat khau
+              Mật khẩu
             </label>
             <input
               id="password"
@@ -67,14 +67,14 @@ export default function LoginPage({ onLogin, onGoRegister }) {
             disabled={loading}
             className="w-full bg-primary text-on-primary font-headline font-bold py-4 rounded-full"
           >
-            {loading ? 'Dang dang nhap...' : 'Dang nhap'}
+            {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
           </button>
         </form>
 
         <p className="mt-8 text-sm text-on-surface-variant text-center">
-          Chua co tai khoan?{' '}
+          Chưa có tài khoản?{' '}
           <button onClick={onGoRegister} className="text-primary font-bold hover:underline" type="button">
-            Dang ky
+            Đăng kí
           </button>
         </p>
       </div>

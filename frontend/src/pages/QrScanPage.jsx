@@ -53,20 +53,20 @@ export default function QrScanPage({ onClose }) {
   return (
     <main className="pt-10 pb-24 px-6 max-w-xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-headline text-2xl font-bold">Quet QR diem danh</h1>
-        <button type="button" onClick={onClose} className="px-4 py-2 rounded-full bg-surface-container-low">Dong</button>
+        <h1 className="font-headline text-2xl font-bold">Quét QR điểm danh</h1>
+        <button type="button" onClick={onClose} className="px-4 py-2 rounded-full bg-surface-container-low">Đóng</button>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4 bg-surface-container-lowest p-6 rounded-xl">
         <input
           className="w-full px-4 py-3 bg-surface-container-low rounded-xl"
-          placeholder="Nhap token QR"
+          placeholder="Nhập token QR"
           value={token}
           onChange={(e) => setToken(e.target.value)}
         />
 
         <button type="button" onClick={getLocation} className="w-full px-4 py-3 rounded-xl bg-secondary-container text-on-secondary-container font-semibold">
-          Lay vi tri GPS
+          Lấy vị trí GPS
         </button>
 
         <div className="grid grid-cols-2 gap-3">
@@ -80,7 +80,7 @@ export default function QrScanPage({ onClose }) {
         </label>
 
         <button type="submit" disabled={loading} className="w-full py-3 bg-primary text-on-primary rounded-full font-bold">
-          {loading ? 'Dang gui...' : 'Gui diem danh'}
+          {loading ? 'Đang gửi...' : 'Gửi điểm danh'}
         </button>
 
         {message ? <p className="text-sm text-primary">{message}</p> : null}

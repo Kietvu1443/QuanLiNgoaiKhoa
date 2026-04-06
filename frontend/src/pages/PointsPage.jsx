@@ -20,22 +20,22 @@ export default function PointsPage() {
 
   return (
     <div>
-      <TopAppBar title="Diem tich luy" />
+      <TopAppBar title="Điểm tích luỹ" />
       <main className="pt-24 pb-32 px-6 max-w-4xl mx-auto space-y-6">
         <section className="bg-primary-container rounded-xl p-6 text-on-primary">
-          <p className="text-sm">Tong diem hien tai</p>
+          <p className="text-sm">Tổng điểm hiện tại</p>
           <h2 className="font-headline text-5xl font-extrabold">{totalPoints}</h2>
         </section>
 
         <section className="space-y-3">
-          <h3 className="font-headline text-xl font-bold">Lich su hoat dong</h3>
+          <h3 className="font-headline text-xl font-bold">Lịch sử hoạt động</h3>
           {activities.map((item) => (
             <article key={item.activity_id} className="bg-surface-container-lowest rounded-xl p-4 shadow-sm">
               <div className="flex items-center justify-between">
                 <p className="font-semibold">{item.title}</p>
                 <p className="font-bold text-primary">+{item.points}</p>
               </div>
-              <p className="text-sm text-on-surface-variant">Trang thai: {item.status}</p>
+              <p className="text-sm text-on-surface-variant">Trạng thái: {item.status}</p>
             </article>
           ))}
         </section>

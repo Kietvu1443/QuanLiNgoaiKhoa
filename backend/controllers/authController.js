@@ -8,11 +8,11 @@ async function register(req, res) {
     const password = String(req.body.password || '');
 
     if (!studentCode || !password) {
-      return fail(res, 'student_code and password are required', 400);
+      return fail(res, 'Vui lòng nhập MSSV và mật khẩu', 400);
     }
 
     if (password.length < 6) {
-      return fail(res, 'Password must be at least 6 characters', 400);
+      return fail(res, 'Mật khẩu phải dài hơn 6 kí tự', 400);
     }
 
     // Dev-only: keep plaintext to simplify local demo setup.
@@ -41,7 +41,7 @@ async function login(req, res) {
     const password = String(req.body.password || '');
 
     if (!studentCode || !password) {
-      return fail(res, 'student_code and password are required', 400);
+      return fail(res, 'Vui lòng nhập MSSV và mật khẩu', 400);
     }
 
     const result = await query(
@@ -51,12 +51,12 @@ async function login(req, res) {
 
     const user = result.rows[0];
     if (!user) {
-      return fail(res, 'Invalid credentials', 401);
+      return fail(res, 'Sai tài khoản hoặc mật khẩu', 401);
     }
 
     const matched = password === user.password_hash;
     if (!matched) {
-      return fail(res, 'Invalid credentials', 401);
+      return fail(res, 'Sai tài khoản hoặc mật khẩu', 401);
     }
 
     const token = signAccessToken(user);

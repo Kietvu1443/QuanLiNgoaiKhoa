@@ -39,12 +39,12 @@ export default function RegisterPage({ onRegisterSuccess, onGoLogin }) {
   return (
     <main className="bg-surface min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-2xl bg-surface-container-lowest rounded-[2rem] p-8 md:p-12">
-        <h1 className="font-headline text-3xl font-bold text-on-surface mb-2">Tao tai khoan moi</h1>
-        <p className="text-on-surface-variant mb-8">Ban da co giao dien HTML, day la ban JSX de demo API.</p>
+        <h1 className="font-headline text-3xl font-bold text-on-surface mb-2">Tạo tài khoản mới</h1>
+        <p className="text-on-surface-variant mb-8">Đây là bản demo test chức năng.</p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-xs font-semibold text-primary uppercase tracking-widest mb-2">Ho va ten</label>
+            <label className="block text-xs font-semibold text-primary uppercase tracking-widest mb-2">Họ và tên</label>
             <input
               className="w-full px-4 py-3 bg-surface-container-low border-b-2 border-surface-container-highest focus:border-primary outline-none"
               value={fullName}
@@ -54,7 +54,7 @@ export default function RegisterPage({ onRegisterSuccess, onGoLogin }) {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-primary uppercase tracking-widest mb-2">Ma so sinh vien</label>
+            <label className="block text-xs font-semibold text-primary uppercase tracking-widest mb-2">Mã số sinh viên</label>
             <input
               className="w-full px-4 py-3 bg-surface-container-low border-b-2 border-surface-container-highest focus:border-primary outline-none"
               value={studentCode}
@@ -65,7 +65,7 @@ export default function RegisterPage({ onRegisterSuccess, onGoLogin }) {
 
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-primary uppercase tracking-widest mb-2">Mat khau</label>
+              <label className="block text-xs font-semibold text-primary uppercase tracking-widest mb-2">Mật khẩu</label>
               <input
                 type="password"
                 className="w-full px-4 py-3 bg-surface-container-low border-b-2 border-surface-container-highest focus:border-primary outline-none"
@@ -74,7 +74,7 @@ export default function RegisterPage({ onRegisterSuccess, onGoLogin }) {
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-primary uppercase tracking-widest mb-2">Nhap lai mat khau</label>
+              <label className="block text-xs font-semibold text-primary uppercase tracking-widest mb-2">Nhập lại mật khẩu</label>
               <input
                 type="password"
                 className="w-full px-4 py-3 bg-surface-container-low border-b-2 border-surface-container-highest focus:border-primary outline-none"
@@ -91,14 +91,14 @@ export default function RegisterPage({ onRegisterSuccess, onGoLogin }) {
             disabled={loading}
             className="w-full bg-primary text-on-primary py-4 rounded-full font-headline font-bold"
           >
-            {loading ? 'Dang tao...' : 'Dang ky'}
+            {loading ? 'Đang tạo...' : 'Đăng kí'}
           </button>
         </form>
 
         <p className="mt-8 text-sm text-on-surface-variant text-center">
-          Da co tai khoan?{' '}
+          Đã có tài khoản?{' '}
           <button onClick={onGoLogin} type="button" className="text-primary font-bold hover:underline">
-            Dang nhap
+            Đăng nhập
           </button>
         </p>
       </div>

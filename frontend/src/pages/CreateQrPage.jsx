@@ -27,9 +27,9 @@ export default function CreateQrPage({ onBack }) {
         duration_minutes: Number(durationMinutes),
       });
       setResult(response.data.data);
-      setMessage('Tao QR thanh cong');
+      setMessage('Tạo QR thành công');
     } catch (error) {
-      setMessage(error.response?.data?.message || 'Tao QR that bai');
+      setMessage(error.response?.data?.message || 'Tạo QR thất bại');
     } finally {
       setLoading(false);
     }
@@ -38,7 +38,7 @@ export default function CreateQrPage({ onBack }) {
   return (
     <main className="pt-10 pb-32 px-6 max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-headline text-2xl font-bold">Tao ma QR</h1>
+        <h1 className="font-headline text-2xl font-bold">Tạo mã QR</h1>
         <button onClick={onBack} type="button" className="px-4 py-2 rounded-full bg-surface-container-low">
           Quay lai
         </button>
@@ -50,7 +50,7 @@ export default function CreateQrPage({ onBack }) {
           value={activityId}
           onChange={(e) => setActivityId(e.target.value)}
         >
-          <option value="">Chon hoat dong</option>
+          <option value="">Chọn hoạt động</option>
           {activities.map((item) => (
             <option key={item.id} value={item.id}>{item.title}</option>
           ))}
@@ -65,7 +65,7 @@ export default function CreateQrPage({ onBack }) {
         />
 
         <button type="submit" disabled={loading} className="w-full py-3 bg-primary text-on-primary rounded-full font-bold">
-          {loading ? 'Dang tao...' : 'Generate QR'}
+          {loading ? 'Đang tạo...' : 'Tạo QR'}
         </button>
 
         {message ? <p className="text-sm text-primary">{message}</p> : null}
