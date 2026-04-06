@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#d8dbd8",
+                        "surface": "#f8faf7",
+                        "inverse-surface": "#2e3130",
+                        "on-primary-fixed": "#00201a",
+                        "tertiary-fixed-dim": "#ffb5a1",
+                        "on-secondary-container": "#526478",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#cfe2f9",
+                        "secondary": "#4e6073",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e7e9e6",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#191c1b",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#d1e4fb",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e1e3e0",
+                        "on-tertiary-fixed": "#370e04",
+                        "secondary-fixed-dim": "#b5c8df",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#94d3c1",
+                        "primary-fixed": "#afefdd",
+                        "surface-bright": "#f8faf7",
+                        "primary-container": "#004d40",
+                        "outline": "#707975",
+                        "on-surface-variant": "#3f4945",
+                        "on-secondary-fixed-variant": "#36485b",
+                        "inverse-on-surface": "#eff1ef",
+                        "on-secondary-fixed": "#091d2e",
+                        "on-tertiary-container": "#e89f8c",
+                        "on-surface": "#191c1b",
+                        "tertiary": "#4e2013",
+                        "on-primary-container": "#7ebdac",
+                        "primary-fixed-dim": "#94d3c1",
+                        "outline-variant": "#bfc9c4",
+                        "primary": "#00342b",
+                        "background": "#f8faf7",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f2f4f1",
+                        "tertiary-container": "#693527",
+                        "on-tertiary-fixed-variant": "#6d382a",
+                        "tertiary-fixed": "#ffdbd1",
+                        "on-primary-fixed-variant": "#065043",
+                        "surface-container": "#eceeec",
+                        "surface-tint": "#29695b",
+                        "surface-variant": "#e1e3e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-gradient {
+            background: linear-gradient(135deg, #00342b 0%, #004d40 100%);
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- Top Navigation Anchor (Based on JSON) -->
+<header class="bg-[#f8faf7]/70 backdrop-blur-xl sticky top-0 z-50 transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center w-full px-6 py-3 max-w-7xl mx-auto">
+<h1 class="font-manrope tracking-tight font-bold text-lg text-teal-900">Tài khoản</h1>
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined text-teal-900 transition-all duration-300 ease-in-out active:scale-95" data-icon="notifications">notifications</button>
+</div>
+</div>
+</header>
+<main class="max-w-xl mx-auto px-6 py-8 space-y-12">
+<!-- Profile Header: The Academic Curator Style -->
+<section class="relative">
+<div class="editorial-gradient p-8 rounded-xl text-white shadow-[0_12px_24px_rgba(0,52,43,0.12)] flex flex-col md:flex-row items-center md:items-start gap-6 overflow-hidden">
+<!-- Abstract Texture Overlay -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;"></div>
+<div class="relative w-24 h-24 rounded-full overflow-hidden border-4 border-primary-container/30">
+<img alt="Student Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional-looking young man with a friendly expression in a modern office or university setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkrxR0ExyJoJURZTv6M7IrzymBiLwTNz2-Ep1C5j3FC25U9AaWB6kOYfSuZDQy7_cIwYjrYDiQRGuUGtexkZc--D2QMC6R53NxICTHxnh4ELht-aod9esmaAiN7A8nofEQagzCHLhcbxh86fvYT5jYv9Y08K5nD_saqeooSPGz6btxJHLhQpw8fA7rh3uSQM5srQSDoUYVdQ5Vt_36CrweH-zy41XrppCkg7wfM9kOY7HLhpz3Qd8yxGVfWq6NJ2tm2LZ53GB84zM"/>
+</div>
+<div class="flex-1 text-center md:text-left space-y-1">
+<h2 class="text-2xl font-extrabold tracking-tight">Nguyễn Văn An</h2>
+<p class="text-primary-fixed/80 font-label text-sm tracking-wider">MSSV: 20215678</p>
+<div class="mt-4 inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="text-xs font-bold uppercase tracking-widest">Hội viên Vàng</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Account Settings Bento Grid -->
+<section class="space-y-6">
+<h3 class="text-sm font-bold uppercase tracking-[0.2em] text-on-surface-variant ml-1">Cài đặt tài khoản</h3>
+<div class="grid gap-4">
+<!-- Profile Settings Card -->
+<div class="group bg-surface-container-lowest p-5 rounded-xl flex items-center justify-between transition-all duration-300 ease-in-out hover:bg-surface-container-low active:scale-[0.98]">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="person_outline">person_outline</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Thông tin cá nhân</p>
+<p class="text-xs text-on-surface-variant">Cập nhật email, số điện thoại</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Password Card -->
+<div class="group bg-surface-container-lowest p-5 rounded-xl flex items-center justify-between transition-all duration-300 ease-in-out hover:bg-surface-container-low active:scale-[0.98]">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="lock_reset">lock_reset</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Đổi mật khẩu</p>
+<p class="text-xs text-on-surface-variant">Bảo mật tài khoản của bạn</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Preference Card -->
+<div class="group bg-surface-container-lowest p-5 rounded-xl flex items-center justify-between transition-all duration-300 ease-in-out hover:bg-surface-container-low active:scale-[0.98]">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Giao diện</p>
+<p class="text-xs text-on-surface-variant">Chế độ tối, ngôn ngữ</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Danger Zone -->
+<section class="space-y-4 pt-4">
+<button class="w-full bg-surface-container-lowest text-error border border-error/10 py-5 rounded-full font-bold flex items-center justify-center gap-2 transition-all active:scale-95 shadow-sm hover:bg-error/5">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Đăng xuất
+            </button>
+<p class="text-center text-[10px] text-outline tracking-widest uppercase">Phiên bản 2.4.0 (Build 452)</p>
+</section>
+</main>
+<!-- Bottom Navigation Shell (Mandatory Execution from JSON) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/80 backdrop-blur-2xl border-t border-slate-100 rounded-t-[24px] shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
+<!-- Hoạt động -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-teal-700 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="list_alt">list_alt</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest">Hoạt động</span>
+</a>
+<!-- Quét QR -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-teal-700 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest">Quét QR</span>
+</a>
+<!-- Điểm tích lũy -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-teal-700 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="stars">stars</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest">Tích lũy</span>
+</a>
+<!-- Tài khoản (ACTIVE STATE) -->
+<a class="flex flex-col items-center justify-center bg-teal-900 text-white rounded-[16px] px-5 py-2 mt-1 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="account_circle" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest">Tài khoản</span>
+</a>
+</nav>
+<!-- Modal Login Section (Initially hidden or shown as alternative view) -->
+<!-- For demonstration, this is the 'logged out' view structure -->
+<div class="fixed inset-0 bg-surface z-[60] flex flex-col p-8 hidden" id="login-overlay">
+<div class="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full space-y-12">
+<div class="space-y-4">
+<div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-white shadow-xl shadow-primary/20">
+<span class="material-symbols-outlined text-4xl" data-icon="school">school</span>
+</div>
+<h2 class="text-4xl font-extrabold tracking-tighter text-primary">Chào mừng trở lại.</h2>
+<p class="text-on-surface-variant font-body">Đăng nhập để tiếp tục quá trình học tập của bạn.</p>
+</div>
+<form class="space-y-6">
+<div class="space-y-4">
+<div class="relative">
+<input class="w-full bg-transparent border-0 border-b-2 border-surface-container-highest focus:ring-0 focus:border-primary px-0 py-3 transition-all" placeholder="Tên đăng nhập" type="text"/>
+</div>
+<div class="relative">
+<input class="w-full bg-transparent border-0 border-b-2 border-surface-container-highest focus:ring-0 focus:border-primary px-0 py-3 transition-all" placeholder="Mật khẩu" type="password"/>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/>
+<span class="text-xs text-on-surface-variant font-medium">Ghi nhớ tôi</span>
+</label>
+<a class="text-xs font-bold text-primary" href="#">Quên mật khẩu?</a>
+</div>
+<button class="w-full bg-primary text-white py-4 rounded-full font-bold shadow-lg shadow-primary/30 transition-all active:scale-95">Đăng nhập</button>
+</form>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="h-[1px] flex-1 bg-surface-container-highest"></div>
+<span class="text-[10px] font-bold text-outline-variant tracking-widest uppercase">Hoặc đăng nhập bằng</span>
+<div class="h-[1px] flex-1 bg-surface-container-highest"></div>
+</div>
+<div class="flex gap-4">
+<button class="flex-1 py-3 border border-surface-container-highest rounded-xl flex items-center justify-center hover:bg-surface-container-low transition-colors">
+<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgGRhA2qeCX6mBCPvGKjo3w8m5CURiaXuLg3R8ujgE_8tFkOMYx2aiQeVfy85lQKASgcpZbOaYn9xtm082bZoCOF8e1mM22wYlr6_ArzznOx1N71dwNW7JIycxmKaK8q9wfIWgbPCq9EBPiTNl1a6O9BCEBgAGbGAXdwvOehonfH64DHTpw6NgLoFQVUzCKb1ECJlejN57dBe5mHG-6mSFR5tvdETeArhfdlwnVz4QpEdc6DDsotZGl1l9JavtHQD_SrzeQ6Cnvm8"/>
+</button>
+<button class="flex-1 py-3 border border-surface-container-highest rounded-xl flex items-center justify-center hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-blue-600" data-icon="facebook">social_leaderboard</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

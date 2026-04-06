@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Đăng ký | Scholar Pulse</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#00342b",
+                    "secondary-fixed": "#d1e4fb",
+                    "inverse-on-surface": "#eff1ef",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#bfc9c4",
+                    "on-secondary-container": "#526478",
+                    "surface-variant": "#e1e3e0",
+                    "on-secondary-fixed": "#091d2e",
+                    "on-primary-container": "#7ebdac",
+                    "on-primary": "#ffffff",
+                    "surface-tint": "#29695b",
+                    "secondary-fixed-dim": "#b5c8df",
+                    "surface-dim": "#d8dbd8",
+                    "surface-container-highest": "#e1e3e0",
+                    "tertiary-container": "#693527",
+                    "tertiary-fixed": "#ffdbd1",
+                    "on-surface": "#191c1b",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#2e3130",
+                    "surface-container-high": "#e7e9e6",
+                    "tertiary": "#4e2013",
+                    "error": "#ba1a1a",
+                    "on-background": "#191c1b",
+                    "on-primary-fixed-variant": "#065043",
+                    "on-primary-fixed": "#00201a",
+                    "primary-container": "#004d40",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed-variant": "#6d382a",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#94d3c1",
+                    "surface-bright": "#f8faf7",
+                    "tertiary-fixed-dim": "#ffb5a1",
+                    "primary-fixed": "#afefdd",
+                    "surface": "#f8faf7",
+                    "on-secondary-fixed-variant": "#36485b",
+                    "primary-fixed-dim": "#94d3c1",
+                    "on-tertiary-container": "#e89f8c",
+                    "secondary": "#4e6073",
+                    "on-surface-variant": "#3f4945",
+                    "surface-container-low": "#f2f4f1",
+                    "surface-container": "#eceeec",
+                    "secondary-container": "#cfe2f9",
+                    "outline": "#707975",
+                    "on-tertiary-fixed": "#370e04",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f8faf7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex items-center justify-center p-4">
+<!-- Main Auth Shell -->
+<main class="w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden rounded-[2rem] shadow-[0_24px_48px_-12px_rgba(0,52,43,0.08)] bg-surface-container-lowest">
+<!-- Left Column: Branding & Imagery (Asymmetric Layout) -->
+<section class="hidden lg:flex flex-col justify-between p-12 bg-primary relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-16">
+<div class="w-10 h-10 bg-primary-fixed rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl">school</span>
+</div>
+<span class="font-headline font-extrabold text-2xl tracking-tight text-white">Scholar Pulse</span>
+</div>
+<h2 class="font-headline text-4xl font-bold text-white leading-tight -tracking-[0.02em] mb-6">
+                    Hành trình tri thức <br/> bắt đầu từ đây.
+                </h2>
+<p class="text-on-primary-container text-lg max-w-sm font-light">
+                    Hệ thống quản lý học tập và phát triển sinh viên toàn diện dành cho thế hệ Curator mới.
+                </p>
+</div>
+<!-- Asymmetric Image Module -->
+<div class="relative z-10 mt-auto">
+<div class="grid grid-cols-2 gap-4">
+<div class="aspect-[4/5] rounded-xl overflow-hidden shadow-2xl rotate-[-2deg]">
+<img class="w-full h-full object-cover" data-alt="a group of diverse university students studying together in a modern brightly lit library with minimalist architecture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxG3n6qxk9G7Q-VcpZlM2JiwFI8j88pvZ5BP_5hSmJ2STCuPeOIZaQbvMeArTKqhQOfMUbpu41IlVswo556TFYSmTLZA-LVbdsW8khveDNVp-CykTJWwlfZW5SZXtc93mtLluhYRG-tnUlVEsjRVcwbcSRw0Ba11qQI7S964u8OIfONz8ERZRZcssnTWM_j05hFYsFise73SV7xPs10odIRclWql_pW3iEUmULhhtaU_F5aMI-GOBHOmuR1qAKpYO45WKqvoWJMwc"/>
+</div>
+<div class="aspect-[4/5] rounded-xl overflow-hidden shadow-2xl translate-y-8 rotate-[2deg]">
+<img class="w-full h-full object-cover" data-alt="minimalist university campus building facade with clean lines and soft shadows under a clear blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlPcy3-SEZqSCM1GoJKds6UPendYRiQwYfvDlqrSwHD0pa02DAVKhErOD0NRLbj9_Xk0vUYN7CWR3pN1dweTwwcBBH1OxB_zy85ISpoUBzDiC_SePTxfQ1OpMO2d8lZlUUSAC8QefzLjq0s1-JvpsTjOzm-bk5c5FfaRsFyg0uzfOJXRLt121S5YQZSfLCqr8vynYWSQgG-t9lfDU9G7iCw-yxElVvzoaORkyhClBzW7bkMYY-fkqVgTr3TzFtQcuzDbFZTI89mFA"/>
+</div>
+</div>
+</div>
+<!-- Background Texture -->
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-0 right-0 w-96 h-96 bg-primary-fixed blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-container blur-[100px] rounded-full translate-y-1/2 -translate-x-1/2"></div>
+</div>
+</section>
+<!-- Right Column: Registration Form -->
+<section class="p-8 md:p-16 flex flex-col justify-center bg-surface-container-lowest">
+<div class="max-w-md mx-auto w-full">
+<!-- Mobile Header -->
+<div class="lg:hidden flex items-center gap-2 mb-8">
+<span class="material-symbols-outlined text-primary">school</span>
+<span class="font-headline font-bold text-primary">Scholar Pulse</span>
+</div>
+<div class="mb-10">
+<h1 class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-2">Tạo tài khoản mới</h1>
+<p class="text-on-surface-variant font-medium">Tham gia cộng đồng học thuật Scholar Pulse.</p>
+</div>
+<form class="space-y-6">
+<!-- Full Name -->
+<div class="relative group">
+<label class="block text-[11px] uppercase tracking-widest font-bold text-primary mb-1 ml-1">Họ và tên</label>
+<div class="flex items-center border-b-2 border-surface-container-highest focus-within:border-primary transition-colors py-2">
+<span class="material-symbols-outlined text-outline mr-3">person</span>
+<input class="w-full bg-transparent border-none focus:ring-0 p-0 text-on-surface placeholder:text-outline-variant font-medium" placeholder="Nguyễn Văn A" type="text"/>
+</div>
+</div>
+<!-- Student ID & Email Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="relative group">
+<label class="block text-[11px] uppercase tracking-widest font-bold text-primary mb-1 ml-1">Mã số sinh viên</label>
+<div class="flex items-center border-b-2 border-surface-container-highest focus-within:border-primary transition-colors py-2">
+<span class="material-symbols-outlined text-outline mr-3">badge</span>
+<input class="w-full bg-transparent border-none focus:ring-0 p-0 text-on-surface placeholder:text-outline-variant font-medium" placeholder="2024XXXX" type="text"/>
+</div>
+</div>
+<div class="relative group">
+<label class="block text-[11px] uppercase tracking-widest font-bold text-primary mb-1 ml-1">Email sinh viên</label>
+<div class="flex items-center border-b-2 border-surface-container-highest focus-within:border-primary transition-colors py-2">
+<span class="material-symbols-outlined text-outline mr-3">mail</span>
+<input class="w-full bg-transparent border-none focus:ring-0 p-0 text-on-surface placeholder:text-outline-variant font-medium" placeholder="a.nv@student.edu" type="email"/>
+</div>
+</div>
+</div>
+<!-- Passwords -->
+<div class="relative group">
+<label class="block text-[11px] uppercase tracking-widest font-bold text-primary mb-1 ml-1">Mật khẩu</label>
+<div class="flex items-center border-b-2 border-surface-container-highest focus-within:border-primary transition-colors py-2">
+<span class="material-symbols-outlined text-outline mr-3">lock</span>
+<input class="w-full bg-transparent border-none focus:ring-0 p-0 text-on-surface placeholder:text-outline-variant font-medium" placeholder="••••••••" type="password"/>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">visibility_off</span>
+</div>
+</div>
+<div class="relative group">
+<label class="block text-[11px] uppercase tracking-widest font-bold text-primary mb-1 ml-1">Nhập lại mật khẩu</label>
+<div class="flex items-center border-b-2 border-surface-container-highest focus-within:border-primary transition-colors py-2">
+<span class="material-symbols-outlined text-outline mr-3">lock_reset</span>
+<input class="w-full bg-transparent border-none focus:ring-0 p-0 text-on-surface placeholder:text-outline-variant font-medium" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<!-- Agreement -->
+<div class="flex items-start gap-3 py-2">
+<div class="flex items-center h-5">
+<input class="w-5 h-5 text-primary bg-surface-container-low border-outline-variant rounded focus:ring-primary focus:ring-offset-0 transition-all" id="terms" type="checkbox"/>
+</div>
+<label class="text-sm text-on-surface-variant font-medium leading-tight" for="terms">
+                            Tôi đồng ý với các <a class="text-primary font-bold hover:underline" href="#">Điều khoản dịch vụ</a> và <a class="text-primary font-bold hover:underline" href="#">Chính sách bảo mật</a> của Scholar Pulse.
+                        </label>
+</div>
+<!-- CTA Button -->
+<button class="w-full bg-primary text-on-primary py-4 px-6 rounded-full font-headline font-bold text-base shadow-[0_8px_16px_-4px_rgba(0,52,43,0.3)] hover:shadow-[0_12px_24px_-4px_rgba(0,52,43,0.4)] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2" type="submit">
+<span>Đăng ký</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</form>
+<!-- Footer Links -->
+<div class="mt-10 text-center">
+<p class="text-on-surface-variant font-medium">
+                        Đã có tài khoản? 
+                        <a class="text-primary font-bold ml-1 hover:underline underline-offset-4 decoration-2" href="#">Đăng nhập</a>
+</p>
+</div>
+<!-- Subtle Decorative Divider -->
+<div class="mt-12 flex items-center justify-center gap-4">
+<div class="h-[1px] flex-1 bg-surface-container-high"></div>
+<span class="text-[10px] uppercase tracking-widest font-bold text-outline">Hoặc</span>
+<div class="h-[1px] flex-1 bg-surface-container-high"></div>
+</div>
+<!-- University Single Sign-On -->
+<div class="mt-8">
+<button class="w-full flex items-center justify-center gap-3 py-3 px-6 rounded-xl border border-surface-container-high hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined text-primary">account_balance</span>
+<span class="text-on-surface font-semibold text-sm">Sử dụng tài khoản Trường học</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Background Elements -->
+<div class="fixed inset-0 -z-10 pointer-events-none opacity-40">
+<div class="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-primary-fixed blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] left-[-5%] w-[30vw] h-[30vw] bg-secondary-fixed blur-[100px] rounded-full"></div>
+</div>
+</body></html>

@@ -1,0 +1,12 @@
+\set ON_ERROR_STOP on
+
+-- Run this script while connected to the postgres maintenance DB.
+DROP DATABASE IF EXISTS quanly_hoatdong;
+CREATE DATABASE quanly_hoatdong;
+
+\connect quanly_hoatdong
+
+\ir schema.sql
+\ir seed.sql
+
+\echo Database quanly_hoatdong is ready.

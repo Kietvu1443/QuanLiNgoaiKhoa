@@ -1,0 +1,270 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#d8dbd8",
+                    "surface": "#f8faf7",
+                    "inverse-surface": "#2e3130",
+                    "on-primary-fixed": "#00201a",
+                    "tertiary-fixed-dim": "#ffb5a1",
+                    "on-secondary-container": "#526478",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#cfe2f9",
+                    "secondary": "#4e6073",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e7e9e6",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#191c1b",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#d1e4fb",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e1e3e0",
+                    "on-tertiary-fixed": "#370e04",
+                    "secondary-fixed-dim": "#b5c8df",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#94d3c1",
+                    "primary-fixed": "#afefdd",
+                    "surface-bright": "#f8faf7",
+                    "primary-container": "#004d40",
+                    "outline": "#707975",
+                    "on-surface-variant": "#3f4945",
+                    "on-secondary-fixed-variant": "#36485b",
+                    "inverse-on-surface": "#eff1ef",
+                    "on-secondary-fixed": "#091d2e",
+                    "on-tertiary-container": "#e89f8c",
+                    "on-surface": "#191c1b",
+                    "tertiary": "#4e2013",
+                    "on-primary-container": "#7ebdac",
+                    "primary-fixed-dim": "#94d3c1",
+                    "outline-variant": "#bfc9c4",
+                    "primary": "#00342b",
+                    "background": "#f8faf7",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f2f4f1",
+                    "tertiary-container": "#693527",
+                    "on-tertiary-fixed-variant": "#6d382a",
+                    "tertiary-fixed": "#ffdbd1",
+                    "on-primary-fixed-variant": "#065043",
+                    "surface-container": "#eceeec",
+                    "surface-tint": "#29695b",
+                    "surface-variant": "#e1e3e0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .activity-pulse-line {
+            width: 4px;
+            border-radius: 2px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#f8faf7]/70 backdrop-blur-xl transition-all duration-300 ease-in-out shadow-[0_8px_32px_0_rgba(0,0,0,0.05)]">
+<div class="flex justify-between items-center w-full px-6 py-3 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img alt="Student Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a cheerful university student with glasses in a sunlit library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwAGQG_3LKRGoIdIrAPr_Pgh2lJGuYa_O2jzOwpfJINBgva_IQ4Jvyge-4569UGpd7sMbv_7qCEaIvq34hHq_SVJp39NDoTKALMq1VK9udG6KYYxF6B69gymRQl_QUIX82LlxovLf1tm47uVSX_CHluYDyrr6o2AraLdZJoRQRtEo34s5APhPIW0Byxkf9Ugck1SCPZHn48Kij7fc4mzGVNT-M4gBJqE7f05B59gslw88Ez60LHQ9v6R0O7Isusc1-1RaFrMTlFa0" style="">
+</div>
+<h1 class="font-headline tracking-tight font-bold text-lg text-teal-900" style="">Điểm tích lũy</h1>
+</div>
+<button class="material-symbols-outlined text-teal-900 transition-all duration-300 ease-in-out active:scale-95 p-2 hover:bg-teal-50/50 rounded-full" data-icon="notifications" style="">notifications</button>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-7xl mx-auto space-y-8">
+<!-- Hero: The Academic Curator Gauge -->
+<section class="relative bg-gradient-to-br from-primary to-primary-container rounded-xl p-8 text-white overflow-hidden shadow-xl">
+<div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+<div class="space-y-2">
+<span class="font-label text-primary-fixed-dim uppercase tracking-[0.2em] text-xs" style="">Tổng điểm rèn luyện</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline text-6xl font-extrabold tracking-tighter" style="">80</span>
+<span class="text-primary-fixed opacity-70 text-xl font-medium" style="">/ 100</span>
+</div>
+<p class="text-primary-fixed-dim font-medium text-sm" style="">Xếp loại: Tốt</p>
+</div>
+<!-- Custom Activity Pulse Gauge -->
+<div class="flex items-end gap-1 h-32">
+<div class="activity-pulse-line bg-primary-fixed h-[40%]"></div>
+<div class="activity-pulse-line bg-primary-fixed h-[60%]"></div>
+<div class="activity-pulse-line bg-primary-fixed h-[85%]"></div>
+<div class="activity-pulse-line bg-primary-fixed h-[70%]"></div>
+<div class="activity-pulse-line bg-primary-fixed h-[95%]"></div>
+<div class="activity-pulse-line bg-primary-fixed h-[80%]"></div>
+<div class="activity-pulse-line bg-primary-fixed h-[50%]"></div>
+<div class="activity-pulse-line bg-white h-[100%]"></div>
+<div class="activity-pulse-line bg-white/30 h-[80%]"></div>
+<div class="activity-pulse-line bg-white/30 h-[60%]"></div>
+<div class="activity-pulse-line bg-white/30 h-[40%]"></div>
+</div>
+</div>
+<!-- Abstract background element -->
+<div class="absolute -right-10 -bottom-10 w-64 h-64 bg-primary-fixed opacity-10 rounded-full blur-3xl"></div>
+</section>
+<!-- Category Breakdown (Bento Style) -->
+<section class="space-y-4">
+<h2 class="font-headline text-2xl font-bold tracking-tight text-primary px-1" style="">Phân bổ hạng mục</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Academic Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-4 shadow-sm border-l-4 border-primary">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-primary-fixed text-primary rounded-lg">
+<span class="material-symbols-outlined" data-icon="school" style="">school</span>
+</div>
+<span class="font-headline font-bold text-2xl text-primary" style="">28/30</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-on-surface" style="">Học thuật</h3>
+<p class="text-on-surface-variant text-sm" style="">Nghiên cứu khoa học, Olympic...</p>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[93%]"></div>
+</div>
+</div>
+<!-- Social Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-4 shadow-sm border-l-4 border-secondary">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-secondary-fixed text-secondary rounded-lg">
+<span class="material-symbols-outlined" data-icon="groups" style="">groups</span>
+</div>
+<span class="font-headline font-bold text-2xl text-secondary" style="">42/50</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-on-surface" style="">Xã hội &amp; Đoàn thể</h3>
+<p class="text-on-surface-variant text-sm" style="">Mùa hè xanh, hiến máu...</p>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[84%]"></div>
+</div>
+</div>
+<!-- Sports Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-4 shadow-sm border-l-4 border-tertiary">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-tertiary-fixed text-tertiary rounded-lg">
+<span class="material-symbols-outlined" data-icon="sports_soccer" style="">sports_soccer</span>
+</div>
+<span class="font-headline font-bold text-2xl text-tertiary" style="">14/20</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-on-surface" style="">Thể chất</h3>
+<p class="text-on-surface-variant text-sm" style="">Giải chạy, Hội thao SV...</p>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[70%]"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Points History -->
+<section class="space-y-6">
+<div class="flex justify-between items-end px-1">
+<h2 class="font-headline text-2xl font-bold tracking-tight text-primary" style="">Lịch sử tích lũy</h2>
+<button class="text-primary text-sm font-semibold hover:underline" style="">Xem tất cả</button>
+</div>
+<div class="bg-surface-container-low rounded-xl p-2 space-y-2">
+<!-- History Item 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-lg flex items-center justify-between group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="volunteer_activism" style="">volunteer_activism</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface" style="">Chiến dịch Mùa hè xanh 2024</h4>
+<p class="text-on-surface-variant text-xs font-medium" style="">15 Th08, 2024 • Xã hội</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline font-extrabold text-primary" style="">+15</span>
+<p class="text-[10px] uppercase tracking-tighter text-outline" style="">Hoàn thành</p>
+</div>
+</div>
+<!-- History Item 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-lg flex items-center justify-between group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="military_tech" style="">military_tech</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface" style="">Giải nhất Nghiên cứu Khoa học</h4>
+<p class="text-on-surface-variant text-xs font-medium" style="">02 Th07, 2024 • Học thuật</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline font-extrabold text-primary" style="">+10</span>
+<p class="text-[10px] uppercase tracking-tighter text-outline" style="">Hoàn thành</p>
+</div>
+</div>
+<!-- History Item 3 -->
+<div class="bg-surface-container-lowest p-4 rounded-lg flex items-center justify-between group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed/30 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="directions_run" style="">directions_run</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-on-surface" style="">Giải chạy Marathon Sinh viên</h4>
+<p class="text-on-surface-variant text-xs font-medium" style="">20 Th05, 2024 • Thể chất</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline font-extrabold text-primary" style="">+5</span>
+<p class="text-[10px] uppercase tracking-tighter text-outline" style="">Hoàn thành</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/80 backdrop-blur-2xl border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.03)] rounded-t-[24px]">
+<!-- Hoạt động -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 active:scale-90 transition-transform duration-200" href="#" style="">
+<span class="material-symbols-outlined mb-1" data-icon="list_alt" style="">list_alt</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest" style="">Hoạt động</span>
+</a>
+<!-- Quét QR -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 active:scale-90 transition-transform duration-200" href="#" style="">
+<span class="material-symbols-outlined mb-1" data-icon="qr_code_scanner" style="">qr_code_scanner</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest" style="">Quét QR</span>
+</a>
+<!-- Điểm tích lũy (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-teal-900 text-white rounded-[16px] px-5 py-2 mt-1 active:scale-90 transition-transform duration-200" href="#" style="">
+<span class="material-symbols-outlined mb-1" data-icon="stars" style="font-variation-settings: &quot;FILL&quot; 1;">stars</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest" style="">Điểm tích lũy</span>
+</a>
+<!-- Tài khoản -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 active:scale-90 transition-transform duration-200" href="#" style="">
+<span class="material-symbols-outlined mb-1" data-icon="account_circle" style="">account_circle</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest" style="">Tài khoản</span>
+</a>
+</nav>
+</body></html>

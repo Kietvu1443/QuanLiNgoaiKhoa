@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QR Attendance Scanning</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#d8dbd8",
+                    "surface": "#f8faf7",
+                    "inverse-surface": "#2e3130",
+                    "on-primary-fixed": "#00201a",
+                    "tertiary-fixed-dim": "#ffb5a1",
+                    "on-secondary-container": "#526478",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#cfe2f9",
+                    "secondary": "#4e6073",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e7e9e6",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#191c1b",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#d1e4fb",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e1e3e0",
+                    "on-tertiary-fixed": "#370e04",
+                    "secondary-fixed-dim": "#b5c8df",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#94d3c1",
+                    "primary-fixed": "#afefdd",
+                    "surface-bright": "#f8faf7",
+                    "primary-container": "#004d40",
+                    "outline": "#707975",
+                    "on-surface-variant": "#3f4945",
+                    "on-secondary-fixed-variant": "#36485b",
+                    "inverse-on-surface": "#eff1ef",
+                    "on-secondary-fixed": "#091d2e",
+                    "on-tertiary-container": "#e89f8c",
+                    "on-surface": "#191c1b",
+                    "tertiary": "#4e2013",
+                    "on-primary-container": "#7ebdac",
+                    "primary-fixed-dim": "#94d3c1",
+                    "outline-variant": "#bfc9c4",
+                    "primary": "#00342b",
+                    "background": "#f8faf7",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f2f4f1",
+                    "tertiary-container": "#693527",
+                    "on-tertiary-fixed-variant": "#6d382a",
+                    "tertiary-fixed": "#ffdbd1",
+                    "on-primary-fixed-variant": "#065043",
+                    "surface-container": "#eceeec",
+                    "surface-tint": "#29695b",
+                    "surface-variant": "#e1e3e0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .scanner-mask {
+            background: rgba(0, 0, 0, 0.6);
+            mask: url('data:image/svg+xml;utf8,<svg preserveAspectRatio="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0zM20 20h60v60H20z" fill-rule="evenodd"/></svg>');
+            -webkit-mask: url('data:image/svg+xml;utf8,<svg preserveAspectRatio="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0zM20 20h60v60H20z" fill-rule="evenodd"/></svg>');
+            mask-size: 100% 100%;
+            -webkit-mask-size: 100% 100%;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased overflow-hidden h-screen flex flex-col">
+<!-- Top Navigation Anchor (suppressed on task-focused camera view but using shared components logic for the shell if needed) -->
+<!-- Applying TopAppBar style from JSON as guidance for a transparent overlay header -->
+<header class="fixed top-0 left-0 w-full z-50 px-6 py-4 flex justify-between items-center bg-transparent">
+<button class="w-12 h-12 flex items-center justify-center rounded-full bg-black/20 backdrop-blur-md text-white transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined">close</span>
+</button>
+<div class="px-4 py-1.5 rounded-full bg-black/20 backdrop-blur-md">
+<span class="text-white font-headline font-bold text-sm tracking-tight">QR Scanner</span>
+</div>
+<button class="w-12 h-12 flex items-center justify-center rounded-full bg-black/20 backdrop-blur-md text-white transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined">flashlight_on</span>
+</button>
+</header>
+<!-- Full-screen Camera Viewport -->
+<main class="flex-grow relative overflow-hidden bg-black">
+<!-- Mock Viewfinder Image -->
+<div class="absolute inset-0 w-full h-full object-cover opacity-80" data-alt="Modern blurred university classroom interior with rows of wooden desks and natural light coming from large windows" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDjcG2b53S36gXFU8KZVtGqEVBCsF0b1QKCD00k4skt5P6Vi5n1loTLxHdLEUswanq7zJVE9tQ-Z6N5v42RMOOJyQWYp7C_dluz0yL1DRd0yUNUj4y8TGXycc37DgONDuXGYCBqt1lwxwI5O36C8-O8-8PaSF-DlNrfB-lAc9MIbBHojDinGVSfQuvPwWo87R-XjXfz5xbBtL90Psv--Jb2bw4voFaZ5VAm1ktS8mqg6XhAknj-Q3TVSP56pI1Dal6m4WVGze3sg9E'); background-position: center;">
+</div>
+<!-- Scanning Overlay Frame -->
+<div class="absolute inset-0 scanner-mask z-10"></div>
+<div class="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none">
+<!-- Scanning Frame Corners -->
+<div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px]">
+<div class="absolute top-0 left-0 w-12 h-12 border-t-4 border-l-4 border-primary rounded-tl-3xl"></div>
+<div class="absolute top-0 right-0 w-12 h-12 border-t-4 border-r-4 border-primary rounded-tr-3xl"></div>
+<div class="absolute bottom-0 left-0 w-12 h-12 border-b-4 border-l-4 border-primary rounded-bl-3xl"></div>
+<div class="absolute bottom-0 right-0 w-12 h-12 border-b-4 border-r-4 border-primary rounded-br-3xl"></div>
+<!-- Scanning Line -->
+<div class="absolute left-4 right-4 top-1/2 h-0.5 bg-primary/40 shadow-[0_0_15px_rgba(0,52,43,0.8)] animate-[scan_3s_ease-in-out_infinite]"></div>
+</div>
+<!-- Instruction Text -->
+<div class="mt-12 px-8 py-4 bg-black/40 backdrop-blur-xl rounded-2xl max-w-[85%] text-center border border-white/10">
+<p class="text-white font-headline text-base font-medium tracking-tight">Di chuyển camera đến mã QR để điểm danh</p>
+<p class="text-white/60 font-body text-xs mt-2 uppercase tracking-widest">Tự động nhận diện</p>
+</div>
+</div>
+<!-- Recent Activity Toast (Optional but adds curator feel) -->
+<div class="absolute bottom-32 left-1/2 -translate-x-1/2 z-30 w-full px-6 pointer-events-none">
+<div class="bg-surface-container-lowest/90 backdrop-blur-lg p-4 rounded-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] flex items-center gap-4 border border-outline-variant/20 max-w-sm mx-auto pointer-events-auto transition-all duration-300 active:scale-95">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<div>
+<h4 class="text-on-surface font-headline font-bold text-sm">Điểm tích lũy hiện tại</h4>
+<p class="text-on-surface-variant font-body text-xs">Bạn đang có 1,250 điểm</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Shared BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/80 backdrop-blur-2xl dark:bg-slate-950/80 shadow-[0_-4px_20px_rgba(0,0,0,0.03)] rounded-t-[24px] border-t border-slate-100 dark:border-slate-800">
+<!-- Hoạt động -->
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-teal-700 dark:hover:text-teal-300 transition-transform duration-200 active:scale-90">
+<span class="material-symbols-outlined text-2xl" data-icon="list_alt">list_alt</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest mt-1">Hoạt động</span>
+</div>
+<!-- Quét QR (ACTIVE) -->
+<div class="flex flex-col items-center justify-center bg-teal-900 text-white dark:bg-teal-500 dark:text-slate-950 rounded-[16px] px-5 py-2 mt-1 transition-transform duration-200 active:scale-90">
+<span class="material-symbols-outlined text-2xl" data-icon="qr_code_scanner" style="font-variation-settings: 'FILL' 1;">qr_code_scanner</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest mt-1">Quét QR</span>
+</div>
+<!-- Điểm tích lũy -->
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-teal-700 dark:hover:text-teal-300 transition-transform duration-200 active:scale-90">
+<span class="material-symbols-outlined text-2xl" data-icon="stars">stars</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest mt-1">Điểm tích lũy</span>
+</div>
+<!-- Tài khoản -->
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-teal-700 dark:hover:text-teal-300 transition-transform duration-200 active:scale-90">
+<span class="material-symbols-outlined text-2xl" data-icon="account_circle">account_circle</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest mt-1">Tài khoản</span>
+</div>
+</nav>
+<style>
+        @keyframes scan {
+            0%, 100% { transform: translateY(-140px); opacity: 0; }
+            50% { transform: translateY(140px); opacity: 1; }
+        }
+    </style>
+</body></html>
