@@ -17,7 +17,7 @@ async function scanAttendance(req, res) {
     const lng = req.body.lng !== undefined ? Number(req.body.lng) : null;
 
     if (!token) {
-      return fail(res, 'token is required', 400);
+      return fail(res, 'Yêu cầu token', 400);
     }
 
     await client.query('BEGIN');
@@ -32,14 +32,14 @@ async function scanAttendance(req, res) {
 
     if (qrResult.rowCount === 0) {
       await client.query('ROLLBACK');
-      return fail(res, 'Invalid token', 400);
+      return fail(res, 'Token không hợp lệ', 400);
     }
 
     const qr = qrResult.rows[0];
 
     if (new Date(qr.expires_at).getTime() < Date.now()) {
       await client.query('ROLLBACK');
-      return fail(res, 'QR token expired', 400);
+      return fail(res, 'QR token hết hạn', 400);
     }
 
     const registrationResult = await client.query(
@@ -49,7 +49,7 @@ async function scanAttendance(req, res) {
 
     if (registrationResult.rowCount === 0) {
       await client.query('ROLLBACK');
-      return fail(res, 'You are not registered for this activity', 400);
+      return fail(res, 'Bạn chưa đăng kí hoạt động này', 400);
     }
 
     const attendedResult = await client.query(
@@ -59,7 +59,7 @@ async function scanAttendance(req, res) {
 
     if (attendedResult.rowCount > 0) {
       await client.query('ROLLBACK');
-      return fail(res, 'You already checked in', 409);
+      return fail(res, 'Bạn đã đăng kí hoạt động này rồi', 409);
     }
 
     let status = 'pending';
@@ -75,7 +75,7 @@ async function scanAttendance(req, res) {
 
       if (distanceMeters >= 50) {
         await client.query('ROLLBACK');
-        return fail(res, 'Too far from activity location', 400, {
+        return fail(res, 'Quá xa khỏi nơi diễn ra hoạt động', 400, {
           distance_m: Number(distanceMeters.toFixed(2)),
         });
       }

@@ -66,17 +66,26 @@ async function registerActivity(req, res) {
       return fail(res, 'Activity not found', 404);
     }
 
-    await query(
-      'INSERT INTO registrations (user_id, activity_id) VALUES ($1, $2)',
+    const insertResult = await query(
+      `INSERT INTO registrations (user_id, activity_id)
+       VALUES ($1, $2)
+       ON CONFLICT (user_id, activity_id) DO NOTHING
+       RETURNING user_id`,
       [req.user.id, activityId]
     );
 
-    return ok(res, 'Registered activity', { activity_id: activityId }, 201);
-  } catch (error) {
-    if (error.code === '23505') {
-      return fail(res, 'You already registered this activity', 409);
+    if (insertResult.rowCount === 0) {
+      return ok(res, 'Already registered this activity', {
+        activity_id: activityId,
+        already_registered: true,
+      });
     }
 
+    return ok(res, 'Registered activity', {
+      activity_id: activityId,
+      already_registered: false,
+    }, 201);
+  } catch (error) {
     return fail(res, 'Internal server error', 500);
   }
 }

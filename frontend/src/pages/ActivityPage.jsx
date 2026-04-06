@@ -6,6 +6,8 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
+  const [registeringIds, setRegisteringIds] = useState([]);
+  const [registeredIds, setRegisteredIds] = useState([]);
 
   const fetchActivities = async () => {
     try {
@@ -23,11 +25,26 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
   }, []);
 
   const registerActivity = async (activityId) => {
+    if (registeringIds.includes(activityId) || registeredIds.includes(activityId)) {
+      return;
+    }
+
+    setRegisteringIds((prev) => [...prev, activityId]);
+
     try {
       await api.post(`/activities/${activityId}/register`);
       setMessage('Dang ky thanh cong');
+      setRegisteredIds((prev) => (prev.includes(activityId) ? prev : [...prev, activityId]));
     } catch (error) {
+      if (error.response?.status === 409) {
+        setMessage('Ban da dang ky hoat dong nay');
+        setRegisteredIds((prev) => (prev.includes(activityId) ? prev : [...prev, activityId]));
+        return;
+      }
+
       setMessage(error.response?.data?.message || 'Dang ky that bai');
+    } finally {
+      setRegisteringIds((prev) => prev.filter((id) => id !== activityId));
     }
   };
 
@@ -69,10 +86,15 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
                   {user?.role === 'admin' ? null : (
                     <button
                       onClick={() => registerActivity(item.id)}
+                      disabled={registeringIds.includes(item.id) || registeredIds.includes(item.id)}
                       className="px-4 py-2 bg-primary text-on-primary rounded-full text-sm font-semibold"
                       type="button"
                     >
-                      Đăng kí
+                      {registeredIds.includes(item.id)
+                        ? 'Da dang ky'
+                        : registeringIds.includes(item.id)
+                          ? 'Dang dang ky...'
+                          : 'Dang ki'}
                     </button>
                   )}
                 </div>
