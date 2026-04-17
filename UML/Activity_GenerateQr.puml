@@ -1,0 +1,33 @@
+@startuml Activity Diagram - Admin Generate QR
+title Activity Diagram - Admin Generate QR
+
+start
+
+:Admin mở chức năng tạo QR;
+
+if (Đã đăng nhập?) then (Có)
+else (Chưa)
+  :Chuyển đến đăng nhập;
+  stop
+endif
+
+:Hiển thị danh sách hoạt động;
+
+:Admin chọn hoạt động;
+
+:Admin chọn thời lượng QR (phút);
+
+:Admin bấm "Generate QR";
+
+:Hệ thống tạo token ngẫu nhiên;
+
+:Hệ thống tính thời gian hết hạn;
+
+:Hệ thống lưu vào DB (qr_codes);
+
+:Hệ thống tạo QR code từ token;
+
+:Hiển thị QR code;
+
+stop
+@enduml

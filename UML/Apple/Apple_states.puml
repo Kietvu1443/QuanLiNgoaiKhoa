@@ -1,0 +1,17 @@
+@startuml AppleCore
+    [*] --> Green
+
+    state "Táo Xanh" as Green
+    state "Táo Chín" as Ripe
+    state "Táo Thối" as Rotten
+    state "Ăn Táo" as Eaten
+    state "Thùng rác" as Trash
+
+    Green --> Ripe: Chính dần
+    Ripe --> Eaten: Ăn
+    Ripe --> Rotten: Bỏ quá lâu
+
+    Rotten --> Trash: Vứt vào
+
+    Eaten --> [*]
+    Trash --> [*]

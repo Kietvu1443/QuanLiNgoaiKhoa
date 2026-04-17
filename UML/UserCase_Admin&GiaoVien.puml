@@ -1,0 +1,19 @@
+@startuml UserCase_GV
+left to right direction
+actor Admin
+
+rectangle "Hệ thống quản lý hoạt động sinh viên" {
+
+  Admin --> (Đăng nhập)
+
+  Admin --> (Tạo hoạt động)
+  Admin --> (Xem danh sách hoạt động)
+
+  Admin --> (Tạo mã QR)
+  Admin --> (Làm mới QR)
+
+  Admin --> (Xem danh sách điểm danh)
+  Admin --> (Xem điểm sinh viên)
+
+}
+@enduml
