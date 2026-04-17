@@ -10,6 +10,8 @@ export default defineConfig({
     },
   },
   server: {
+    host: true,
+    allowedHosts: true,
     hmr: process.env.DISABLE_HMR !== 'true',
     proxy: {
       '/api': {

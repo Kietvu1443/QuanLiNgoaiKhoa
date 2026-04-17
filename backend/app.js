@@ -17,7 +17,7 @@ app.use('/api', indexRouter);
 app.get('/', (_req, res) => {
     res.json({
         success: true,
-        message: 'Student activity demo API is running',
+        message: 'Student activity API is running',
         data: null,
     });
 });

@@ -13,7 +13,7 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
     try {
       const response = await api.get('/activities');
       setActivities(response.data.data || []);
-    } catch (error) {
+    } catch {
       setMessage('Không thể tải danh sách hoạt động');
     } finally {
       setLoading(false);
@@ -64,6 +64,9 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
             </button>
             <button onClick={onOpenCreateQr} className="px-5 py-3 bg-secondary-container text-on-secondary-container rounded-full font-semibold" type="button">
               Tạo mã QR
+            </button>
+            <button onClick={onOpenMonitor} className="px-5 py-3 bg-tertiary text-on-tertiary rounded-full font-semibold" type="button">
+              Xác minh điểm danh
             </button>
           </section>
         ) : null}
