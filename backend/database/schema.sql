@@ -59,7 +59,8 @@ CREATE TABLE points_history (
   user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   activity_id INT NOT NULL REFERENCES activities(id) ON DELETE CASCADE,
   points INT NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE (user_id, activity_id)
 );
 
 CREATE INDEX idx_qr_tokens_token ON qr_tokens(token);
