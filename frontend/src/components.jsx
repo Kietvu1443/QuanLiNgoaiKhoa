@@ -12,7 +12,7 @@ export const MaterialIcon = ({ icon, className = '', filled = false }) => (
 export const BottomNav = ({ currentTab, onChange }) => {
   const tabs = [
     { id: 'activity', icon: 'list_alt', label: 'Hoạt động' },
-    { id: 'qr', icon: 'qr_code_scanner', label: 'Quét QR' },
+    { id: 'qr', icon: 'qr_code_scanner', label: 'Quét mã QR' },
     { id: 'points', icon: 'stars', label: 'Tích lũy' },
     { id: 'account', icon: 'account_circle', label: 'Tài khoản' },
   ];
@@ -48,7 +48,7 @@ export const TopAppBar = ({ title, profileImg }) => (
       <div className="flex items-center gap-3">
         {profileImg && (
           <div className="w-10 h-10 rounded-full overflow-hidden border border-outline-variant/30 transition-all duration-300 ease-in-out active:scale-95">
-            <img alt="Profile" className="w-full h-full object-cover" src={profileImg} />
+            <img alt="Ảnh đại diện" className="w-full h-full object-cover" src={profileImg} />
           </div>
         )}
         <h1 className="font-headline tracking-tight font-bold text-lg text-teal-900">{title}</h1>

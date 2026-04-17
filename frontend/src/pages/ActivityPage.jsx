@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import api from '../services/api';
 import { TopAppBar } from '../components';
 
-export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQr }) {
+export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQr, onOpenMonitor }) {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
@@ -14,7 +14,7 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
       const response = await api.get('/activities');
       setActivities(response.data.data || []);
     } catch (error) {
-      setMessage(error.response?.data?.message || 'Cannot load activities');
+      setMessage('Không thể tải danh sách hoạt động');
     } finally {
       setLoading(false);
     }
@@ -33,16 +33,16 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
 
     try {
       await api.post(`/activities/${activityId}/register`);
-      setMessage('Dang ky thanh cong');
+      setMessage('Đăng ký thành công');
       setRegisteredIds((prev) => (prev.includes(activityId) ? prev : [...prev, activityId]));
     } catch (error) {
       if (error.response?.status === 409) {
-        setMessage('Ban da dang ky hoat dong nay');
+        setMessage('Bạn đã đăng ký hoạt động này');
         setRegisteredIds((prev) => (prev.includes(activityId) ? prev : [...prev, activityId]));
         return;
       }
 
-      setMessage(error.response?.data?.message || 'Dang ky that bai');
+      setMessage('Đăng ký thất bại');
     } finally {
       setRegisteringIds((prev) => prev.filter((id) => id !== activityId));
     }
@@ -54,7 +54,7 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
       <main className="pt-24 pb-32 px-6 max-w-5xl mx-auto">
         <section className="mb-6 p-6 bg-primary-container rounded-xl text-on-primary">
           <p className="text-sm opacity-90">Xin chào</p>
-          <h2 className="font-headline text-2xl font-bold">{user?.student_code || 'student'}</h2>
+          <h2 className="font-headline text-2xl font-bold">{user?.student_code || 'Sinh viên'}</h2>
         </section>
 
         {user?.role === 'admin' ? (
@@ -63,7 +63,7 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
               Tạo hoạt động
             </button>
             <button onClick={onOpenCreateQr} className="px-5 py-3 bg-secondary-container text-on-secondary-container rounded-full font-semibold" type="button">
-              Tạo QR
+              Tạo mã QR
             </button>
           </section>
         ) : null}
@@ -71,7 +71,7 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
         {message ? <p className="mb-4 text-sm text-primary">{message}</p> : null}
 
         {loading ? (
-          <p>Dang tai danh sach...</p>
+          <p>Đang tải danh sách...</p>
         ) : (
           <section className="grid gap-4">
             {activities.map((item) => (
@@ -91,10 +91,10 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
                       type="button"
                     >
                       {registeredIds.includes(item.id)
-                        ? 'Da dang ky'
+                        ? 'Đã đăng ký'
                         : registeringIds.includes(item.id)
-                          ? 'Dang dang ky...'
-                          : 'Dang ki'}
+                          ? 'Đang đăng ký...'
+                          : 'Đăng ký'}
                     </button>
                   )}
                 </div>

@@ -14,7 +14,7 @@ export default function RegisterPage({ onRegisterSuccess, onGoLogin }) {
     setError('');
 
     if (password !== confirmPassword) {
-      setError('Mat khau xac nhan khong khop');
+      setError('Mật khẩu xác nhận không khớp');
       return;
     }
 
@@ -30,7 +30,7 @@ export default function RegisterPage({ onRegisterSuccess, onGoLogin }) {
         password,
       }).then((response) => onRegisterSuccess(response.data.data));
     } catch (err) {
-      setError(err.response?.data?.message || 'Register failed');
+      setError('Đăng ký thất bại');
     } finally {
       setLoading(false);
     }
@@ -40,7 +40,7 @@ export default function RegisterPage({ onRegisterSuccess, onGoLogin }) {
     <main className="bg-surface min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-2xl bg-surface-container-lowest rounded-[2rem] p-8 md:p-12">
         <h1 className="font-headline text-3xl font-bold text-on-surface mb-2">Tạo tài khoản mới</h1>
-        <p className="text-on-surface-variant mb-8">Đây là bản demo test chức năng.</p>
+        <p className="text-on-surface-variant mb-8">Đây là bản demo để kiểm thử chức năng.</p>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
@@ -49,7 +49,7 @@ export default function RegisterPage({ onRegisterSuccess, onGoLogin }) {
               className="w-full px-4 py-3 bg-surface-container-low border-b-2 border-surface-container-highest focus:border-primary outline-none"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              placeholder="Nguyen Van A"
+              placeholder="Nguyễn Văn A"
             />
           </div>
 
@@ -91,7 +91,7 @@ export default function RegisterPage({ onRegisterSuccess, onGoLogin }) {
             disabled={loading}
             className="w-full bg-primary text-on-primary py-4 rounded-full font-headline font-bold"
           >
-            {loading ? 'Đang tạo...' : 'Đăng kí'}
+            {loading ? 'Đang tạo...' : 'Đăng ký'}
           </button>
         </form>
 

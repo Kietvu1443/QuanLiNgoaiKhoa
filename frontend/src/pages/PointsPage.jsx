@@ -7,14 +7,23 @@ export default function PointsPage() {
   const [activities, setActivities] = useState([]);
   const [message, setMessage] = useState('');
 
+  const mapStatusLabel = (status) => {
+    const value = String(status || '').toLowerCase();
+    if (value === 'not_attended') return 'Chưa điểm danh';
+    if (value === 'pending') return 'Chờ xác minh';
+    if (value === 'success') return 'Thành công';
+    if (value === 'error') return 'Lỗi';
+    return status || '-';
+  };
+
   useEffect(() => {
     Promise.all([api.get('/me/points'), api.get('/me/activities')])
       .then(([pointsRes, activitiesRes]) => {
         setTotalPoints(pointsRes.data.data?.total_points || 0);
         setActivities(activitiesRes.data.data || []);
       })
-      .catch((error) => {
-        setMessage(error.response?.data?.message || 'Cannot load points');
+      .catch(() => {
+        setMessage('Không thể tải điểm');
       });
   }, []);
 
@@ -35,7 +44,7 @@ export default function PointsPage() {
                 <p className="font-semibold">{item.title}</p>
                 <p className="font-bold text-primary">+{item.points}</p>
               </div>
-              <p className="text-sm text-on-surface-variant">Trạng thái: {item.status}</p>
+              <p className="text-sm text-on-surface-variant">Trạng thái: {mapStatusLabel(item.status)}</p>
             </article>
           ))}
         </section>

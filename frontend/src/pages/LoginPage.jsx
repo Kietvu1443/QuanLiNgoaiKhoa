@@ -20,7 +20,7 @@ export default function LoginPage({ onLogin, onGoRegister }) {
 
       onLogin(response.data.data);
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError('Đăng nhập thất bại');
     } finally {
       setLoading(false);
     }
@@ -74,7 +74,7 @@ export default function LoginPage({ onLogin, onGoRegister }) {
         <p className="mt-8 text-sm text-on-surface-variant text-center">
           Chưa có tài khoản?{' '}
           <button onClick={onGoRegister} className="text-primary font-bold hover:underline" type="button">
-            Đăng kí
+            Đăng ký
           </button>
         </p>
       </div>

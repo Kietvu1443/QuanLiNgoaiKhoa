@@ -17,7 +17,7 @@ export default function App() {
     try {
       const stored = localStorage.getItem('user');
       return stored ? JSON.parse(stored) : null;
-    } catch (_error) {
+    } catch {
       return null;
     }
   });
