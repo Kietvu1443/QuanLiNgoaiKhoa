@@ -1,0 +1,34 @@
+@startuml FlowDangKiHD
+actor "Học sinh" as HS
+
+title Sơ đồ tuần tự - Đăng kí hoạt động
+
+
+    participant "Giao diện" as UI
+    participant "Hệ thống" as System
+    database "CSDL" as DB
+
+HS -> UI : Chọn đăng kí hoạt động
+UI -> System : request đăng kí
+
+alt Chưa đăng nhập
+    System --> UI : yêu cầu đăng nhập
+else Đã đăng nhập
+    System -> DB : lấy danh sách hoạt động
+    DB --> System : trả dữ liệu
+    System --> UI : hiển thị danh sách
+
+    HS -> UI : chọn hoạt động
+    UI -> System : gửi đăng kí
+
+    System -> DB : kiểm tra số lượng
+
+    alt Hoạt động đã đầy
+        System --> UI : thông báo thất bại
+    else Còn chỗ
+        System -> DB : lưu tham gia
+        DB --> System : OK
+        System --> UI : đăng kí thành công
+    end
+end
+@enduml

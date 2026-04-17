@@ -1,0 +1,15 @@
+@startuml title State Diagram - QR Code Lifecycle
+title State Diagram - QR Code Lifecycle
+
+[*] --> Created
+
+Created --> Active : QR được tạo
+
+Active --> Expired : Hết thời gian
+
+Active --> Invalid : Bị vô hiệu hóa (tạo QR mới)
+
+Expired --> [*]
+Invalid --> [*]
+
+@enduml

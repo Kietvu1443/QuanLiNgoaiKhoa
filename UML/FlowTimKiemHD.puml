@@ -1,0 +1,23 @@
+@startuml FlowTimKiemHD
+title Sơ đồ tuần tự - Tìm kiếm hoạt động
+
+actor "Học Sinh" as HS
+
+participant "Giao Diện" as UI
+participant "Hệ Thống" as System
+database "CSDL" as Database
+
+HS -> UI : Tìm kiếm hoạt động
+UI -> System : Gửi yêu cầu tìm kiếm (loại, địa điểm)
+
+System -> Database : Query hoạt động
+
+alt Có kết quả
+    Database --> System : Danh sách hoạt động
+    System --> UI : Hiển thị danh sách
+else Không có kết quả
+    Database --> System : Danh sách rỗng
+    System --> UI : Không tìm thấy hoạt động
+end
+
+@enduml

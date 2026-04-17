@@ -1,0 +1,33 @@
+@startuml State Diagram - Xem & đăng ký hoạt động
+
+title State Diagram - Xem & đăng ký hoạt động
+
+[*] --> ViewingList
+
+ViewingList --> ViewingDetail : Chọn hoạt động
+
+ViewingDetail --> NotLoggedIn : Chưa đăng nhập
+ViewingDetail --> LoggedIn : Đã đăng nhập
+
+' ===== Chưa đăng nhập =====
+NotLoggedIn --> ShowRegisterButton
+ShowRegisterButton --> RequireLogin : Bấm "Đăng ký"
+RequireLogin --> [*] : Chuyển sang màn login
+
+' ===== Đã đăng nhập =====
+LoggedIn --> CheckRegistered
+
+CheckRegistered --> AlreadyRegistered : Đã đăng ký
+CheckRegistered --> NotRegistered : Chưa đăng ký
+
+AlreadyRegistered --> ShowRegisteredStatus
+ShowRegisteredStatus --> [*]
+
+NotRegistered --> ShowRegisterButton2
+ShowRegisterButton2 --> Registering : Bấm "Đăng ký"
+
+Registering --> Success
+Success --> UpdateUI : Hiển thị "Đã đăng ký"
+UpdateUI --> [*]
+
+@enduml

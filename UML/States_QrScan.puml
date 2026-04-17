@@ -1,0 +1,38 @@
+@startuml State Diagram - Điểm danh QR
+title State Diagram - Điểm danh QR
+
+[*] --> Idle
+
+Idle --> Scanning : Mở chức năng quét QR
+
+Scanning --> NotLoggedIn : Chưa đăng nhập
+NotLoggedIn --> Idle : Đăng nhập xong
+
+Scanning --> GettingLocation : Yêu cầu vị trí
+
+GettingLocation --> HasLocation : Cho phép
+GettingLocation --> NoLocation : Từ chối
+
+HasLocation --> Scanned : Quét QR thành công
+NoLocation --> Scanned : Quét QR thành công
+
+Scanned --> Validating : Gửi dữ liệu lên server
+
+Validating --> InvalidQR : Token sai
+Validating --> ExpiredQR : QR hết hạn
+Validating --> AlreadyChecked : Đã điểm danh
+
+Validating --> CheckingDistance : Có GPS
+CheckingDistance --> TooFar : > 50m
+CheckingDistance --> Success : Hợp lệ
+
+Validating --> Pending : Không có GPS
+
+Success --> [*]
+Pending --> [*]
+InvalidQR --> [*]
+ExpiredQR --> [*]
+AlreadyChecked --> [*]
+TooFar --> [*]
+
+@enduml
