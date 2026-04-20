@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#d8dbd8",
+                    "surface": "#f8faf7",
+                    "inverse-surface": "#2e3130",
+                    "on-primary-fixed": "#00201a",
+                    "tertiary-fixed-dim": "#ffb5a1",
+                    "on-secondary-container": "#526478",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#cfe2f9",
+                    "secondary": "#4e6073",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e7e9e6",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#191c1b",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#d1e4fb",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e1e3e0",
+                    "on-tertiary-fixed": "#370e04",
+                    "secondary-fixed-dim": "#b5c8df",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#94d3c1",
+                    "primary-fixed": "#afefdd",
+                    "surface-bright": "#f8faf7",
+                    "primary-container": "#004d40",
+                    "outline": "#707975",
+                    "on-surface-variant": "#3f4945",
+                    "on-secondary-fixed-variant": "#36485b",
+                    "inverse-on-surface": "#eff1ef",
+                    "on-secondary-fixed": "#091d2e",
+                    "on-tertiary-container": "#e89f8c",
+                    "on-surface": "#191c1b",
+                    "tertiary": "#4e2013",
+                    "on-primary-container": "#7ebdac",
+                    "primary-fixed-dim": "#94d3c1",
+                    "outline-variant": "#bfc9c4",
+                    "primary": "#00342b",
+                    "background": "#f8faf7",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f2f4f1",
+                    "tertiary-container": "#693527",
+                    "on-tertiary-fixed-variant": "#6d382a",
+                    "tertiary-fixed": "#ffdbd1",
+                    "on-primary-fixed-variant": "#065043",
+                    "surface-container": "#eceeec",
+                    "surface-tint": "#29695b",
+                    "surface-variant": "#e1e3e0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 12px 24px rgba(25, 28, 27, 0.06);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-40 bg-[#f8faf7]/70 backdrop-blur-xl transition-all duration-300 ease-in-out border-none">
+<div class="flex justify-between items-center w-full px-6 py-3 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant/30 transition-all duration-300 ease-in-out active:scale-95">
+<img alt="Student Profile Image" class="w-full h-full object-cover" data-alt="Close-up portrait of a young student with a friendly expression, natural lighting, academic campus background in soft focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCW-z9DWtzK_alEgry37mBOdIpfA3W307QuXcvB2eLOxN1txcAKnTYC5ISKyFDm70365-aUSTspzqPQIemCS78BJK0BPTD5OPLePIC1DbuW3JvHO_7koOMWGXBde6fzyi3Y0jOsrhdWJoa4IDNDQwbd4G1u0GEvHNaITF9Q5WSEtYzqCkzAOODXUBGf2sx_82HPd0pqx1PV1OhY55hsNPgexlhTxw_Uujj83mv-zAT3TyJy1qC7v5UtRAAXHgQP04ytnSyflfdtoXk"/>
+</div>
+<h1 class="font-headline tracking-tight font-bold text-lg text-teal-900">Hoạt động</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-teal-900 transition-all duration-300 ease-in-out active:scale-95 hover:bg-teal-50/50">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="pt-20 pb-32 px-6 max-w-7xl mx-auto">
+<!-- Hero Section: Stats Pulse -->
+<section class="mb-10">
+<div class="bg-primary-container p-6 rounded-xl text-on-primary-container flex justify-between items-end editorial-shadow">
+<div class="space-y-1">
+<p class="text-sm font-label uppercase tracking-widest text-primary-fixed-dim/80">Tiến độ tuần này</p>
+<h2 class="text-3xl font-headline font-extrabold text-white">12 giờ</h2>
+</div>
+<div class="flex items-end gap-1.5 h-16">
+<div class="w-1.5 h-8 bg-primary-fixed-dim rounded-full"></div>
+<div class="w-1.5 h-12 bg-primary-fixed-dim rounded-full"></div>
+<div class="w-1.5 h-16 bg-white rounded-full"></div>
+<div class="w-1.5 h-10 bg-primary-fixed-dim rounded-full"></div>
+<div class="w-1.5 h-14 bg-primary-fixed-dim rounded-full"></div>
+</div>
+</div>
+</section>
+<!-- Category Filters -->
+<section class="mb-8 overflow-x-auto no-scrollbar flex gap-3 -mx-6 px-6">
+<button class="px-5 py-2.5 rounded-full bg-primary text-white font-label text-sm whitespace-nowrap">Tất cả</button>
+<button class="px-5 py-2.5 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed-variant font-label text-sm whitespace-nowrap hover:bg-teal-50/50 transition-colors">Tình nguyện</button>
+<button class="px-5 py-2.5 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed-variant font-label text-sm whitespace-nowrap hover:bg-teal-50/50 transition-colors">Thể thao</button>
+<button class="px-5 py-2.5 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed-variant font-label text-sm whitespace-nowrap hover:bg-teal-50/50 transition-colors">Học thuật</button>
+<button class="px-5 py-2.5 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed-variant font-label text-sm whitespace-nowrap hover:bg-teal-50/50 transition-colors">Nghệ thuật</button>
+</section>
+<!-- Activity Grid -->
+<section class="space-y-8">
+<h3 class="font-headline text-2xl font-bold text-primary tracking-tight">Sắp tới</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Activity Card 1 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden editorial-shadow flex flex-col">
+<div class="h-48 w-full relative">
+<img alt="Volunteer Activity" class="w-full h-full object-cover" data-alt="Group of diverse students working together in a bright modern community center, collaborative atmosphere, soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1pWJHfkyx8-hVK-Hi4ojIxnQwW-ZNPnzKh2Yei6vv9Sqnf8riWyQE6awX0Zvd4QUbRu1Qgu6qiHEzRjdXHFVXjikorH6aUfcMhIUKLvy0JEpDup9mgkS3iQLmKTohc_v0zv6_bhkHWeCTGB-oZucRoUwn0iczTX3yuWqbR0KE_xHaA92ha0HaQ7ROwH_cvgHmqUUFyXBVqwjMWJRWxWhNNliFw474vp5RYG-veywY-3Ah6jcEjKyE05kPnvx99wxZ6OgPwIv873A"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-sm text-[10px] font-bold uppercase tracking-widest text-primary">Tình nguyện</div>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div>
+<h4 class="font-headline text-xl font-bold text-on-surface mb-4">Ngày hội hiến máu nhân đạo 2024</h4>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-3 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-lg" data-icon="calendar_today">calendar_today</span>
+<span>24 Tháng 5, 2024 • 08:00</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-lg" data-icon="location_on">location_on</span>
+<span>Sảnh chính - Tòa A1</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-full font-label font-bold text-sm transition-all active:scale-[0.98] hover:bg-primary-container">Tham gia ngay</button>
+</div>
+</div>
+<!-- Activity Card 2 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden editorial-shadow flex flex-col">
+<div class="h-48 w-full relative">
+<img alt="Workshop" class="w-full h-full object-cover" data-alt="Students participating in a creative technology workshop with laptops and colorful sticky notes, bright modern classroom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYnDNfpLyFVj5kD_-5BtRjFFKX9jr3GZBRYI7AypQnR9fp8NuckdncNQuoSXi3Q1op1zFavJ0Qk-PJdGRYweCsAEx5uT8F7xaQo_cFJ4NQY9jOc-qjwtIj4DHfF-feISP4FOzUvPo_9ea86Jj3YrGdnxwvoQgF6CsR86aocyxQufXheiFJzjywh4zGAbN3s0r0jukYt2WqKmc5spPqUtC7AMY-V2vTyMf9H5RZbWsPBDEgUMVBkb2dNR87vLtAkW6_vTPddaQ0qIE"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-sm text-[10px] font-bold uppercase tracking-widest text-primary">Học thuật</div>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div>
+<h4 class="font-headline text-xl font-bold text-on-surface mb-4">Workshop: Kỹ năng quản lý thời gian</h4>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-3 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-lg" data-icon="calendar_today">calendar_today</span>
+<span>26 Tháng 5, 2024 • 14:00</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-lg" data-icon="location_on">location_on</span>
+<span>Phòng hội thảo B4</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-secondary-container text-on-secondary-container py-3 rounded-full font-label font-bold text-sm transition-all active:scale-[0.98]">Đã đăng ký</button>
+</div>
+</div>
+<!-- Activity Card 3 (Asymmetric size hint for editorial look on desktop) -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden editorial-shadow flex flex-col md:col-span-2 md:flex-row">
+<div class="h-48 md:h-auto md:w-2/5 relative">
+<img alt="Sports" class="w-full h-full object-cover" data-alt="Sun-drenched outdoor basketball court at dusk with a solitary ball on the court, dramatic shadows and warm orange light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXU4JqzGNBOXEDLzm_u5M5z2vs3J4tajx5lZpORfsnwoBm_MjVQ66XH84OC2riGjdm5sWztQQND_zR78XjrYNqX9Ge-3jkzGRUwFR2mJt0uI8wGMPfMOKJAHfMCTzuyWoqbmzHPUrtfHMhApexj39K4v232RyEBP2rzha1zMAZaTHhavmkd1QNn1UKYf18LBysGF1F5BesKF6Ca4olAwX98uVH53fzYb60yGJXGKgO9UvBkKz8ES5zFpEf1-grmN3J7ZfF578F5Fs"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-sm text-[10px] font-bold uppercase tracking-widest text-primary">Thể thao</div>
+</div>
+<div class="p-8 flex-grow flex flex-col justify-between">
+<div>
+<h4 class="font-headline text-2xl font-bold text-on-surface mb-4">Giải bóng rổ sinh viên mở rộng</h4>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Tham gia cùng đội tuyển khoa để chinh phục ngôi vô địch năm nay. Yêu cầu có mặt trước 15 phút để khởi động.</p>
+<div class="grid grid-cols-2 gap-4 mb-8">
+<div class="flex items-center gap-3 text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-lg" data-icon="calendar_today">calendar_today</span>
+<span>01 Tháng 6, 2024</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-lg" data-icon="location_on">location_on</span>
+<span>Sân bóng rổ ngoài trời</span>
+</div>
+</div>
+</div>
+<button class="w-full md:w-max px-12 bg-primary text-white py-3 rounded-full font-label font-bold text-sm transition-all active:scale-[0.98] hover:bg-primary-container">Tham gia</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-white/80 backdrop-blur-2xl border-t border-slate-100 rounded-t-[24px] shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
+<!-- Activity (Active) -->
+<a class="flex flex-col items-center justify-center bg-teal-900 text-white rounded-[16px] px-5 py-2 mt-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest mt-1">Hoạt động</span>
+</a>
+<!-- QR Scan -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-teal-700 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest mt-1">Quét QR</span>
+</a>
+<!-- Points -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-teal-700 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="stars">stars</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest mt-1">Điểm tích lũy</span>
+</a>
+<!-- Account -->
+<a class="flex flex-col items-center justify-center text-slate-400 px-5 py-2 hover:text-teal-700 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="text-[10px] font-medium font-inter uppercase tracking-widest mt-1">Tài khoản</span>
+</a>
+</nav>
+<!-- Floating Action Button - Glassmorphism -->
+<button class="fixed right-6 bottom-28 w-14 h-14 bg-primary/80 backdrop-blur-lg text-white rounded-full flex items-center justify-center editorial-shadow active:scale-90 transition-all z-40 border border-white/20">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</body></html>

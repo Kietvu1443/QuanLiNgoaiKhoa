@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   student_code VARCHAR(30) UNIQUE NOT NULL,
+  full_name VARCHAR(255),
   password_hash TEXT NOT NULL,
   role VARCHAR(20) NOT NULL DEFAULT 'student' CHECK (role IN ('student', 'admin')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -24,6 +25,9 @@ CREATE TABLE activities (
   start_time TIMESTAMPTZ NOT NULL,
   end_time TIMESTAMPTZ NOT NULL,
   points INT NOT NULL DEFAULT 0 CHECK (points >= 0),
+  location_text VARCHAR(255) DEFAULT '',
+  category VARCHAR(100) DEFAULT 'Tất cả',
+  image_url TEXT DEFAULT '',
   created_by INT REFERENCES users(id) ON DELETE SET NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -59,10 +63,12 @@ CREATE TABLE points_history (
   user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   activity_id INT NOT NULL REFERENCES activities(id) ON DELETE CASCADE,
   points INT NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE (user_id, activity_id)
 );
 
 CREATE INDEX idx_qr_tokens_token ON qr_tokens(token);
 CREATE INDEX idx_qr_tokens_expires ON qr_tokens(expires_at);
-CREATE INDEX idx_attendances_user ON attendances(user_id);
-CREATE INDEX idx_points_history_user ON points_history(user_id);
+CREATE INDEX IF NOT EXISTS idx_attendances_user ON attendances(user_id);
+CREATE INDEX IF NOT EXISTS idx_att_user_activity_status ON attendances(user_id, activity_id, status);
+CREATE INDEX IF NOT EXISTS idx_ph_user ON points_history(user_id);

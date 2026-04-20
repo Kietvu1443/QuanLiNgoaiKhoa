@@ -1,7 +1,7 @@
-INSERT INTO users (student_code, password_hash, role)
+INSERT INTO users (student_code, full_name, password_hash, role)
 VALUES
-  ('admin001', 'admin123', 'admin'),
-  ('sv001', '123456', 'student');
+  ('admin001', 'Quản trị viên', 'admin123', 'admin'),
+  ('sv001', 'Sinh viên mẫu', '123456', 'student');
 
 INSERT INTO activities (title, description, latitude, longitude, start_time, end_time, points, created_by)
 VALUES
