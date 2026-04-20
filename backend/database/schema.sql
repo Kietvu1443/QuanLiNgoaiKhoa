@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   student_code VARCHAR(30) UNIQUE NOT NULL,
+  full_name VARCHAR(255),
   password_hash TEXT NOT NULL,
   role VARCHAR(20) NOT NULL DEFAULT 'student' CHECK (role IN ('student', 'admin')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -65,5 +66,6 @@ CREATE TABLE points_history (
 
 CREATE INDEX idx_qr_tokens_token ON qr_tokens(token);
 CREATE INDEX idx_qr_tokens_expires ON qr_tokens(expires_at);
-CREATE INDEX idx_attendances_user ON attendances(user_id);
-CREATE INDEX idx_points_history_user ON points_history(user_id);
+CREATE INDEX IF NOT EXISTS idx_attendances_user ON attendances(user_id);
+CREATE INDEX IF NOT EXISTS idx_att_user_activity_status ON attendances(user_id, activity_id, status);
+CREATE INDEX IF NOT EXISTS idx_ph_user ON points_history(user_id);

@@ -13,6 +13,11 @@ export default function RegisterPage({ onRegisterSuccess, onGoLogin }) {
     event.preventDefault();
     setError('');
 
+    if (!fullName.trim()) {
+      setError('Vui lòng nhập họ và tên');
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError('Mật khẩu xác nhận không khớp');
       return;
@@ -21,6 +26,7 @@ export default function RegisterPage({ onRegisterSuccess, onGoLogin }) {
     setLoading(true);
     try {
       await api.post('/auth/register', {
+        full_name: fullName.trim(),
         student_code: studentCode,
         password,
       });

@@ -4,11 +4,12 @@ const { ok, fail } = require('../utils/response');
 
 async function register(req, res) {
   try {
+    const fullName = String(req.body.full_name || '').trim();
     const studentCode = String(req.body.student_code || '').trim();
     const password = String(req.body.password || '');
 
-    if (!studentCode || !password) {
-      return fail(res, 'Vui lòng nhập MSSV và mật khẩu', 400);
+    if (!fullName || !studentCode || !password) {
+      return fail(res, 'Vui lòng nhập họ tên, MSSV và mật khẩu', 400);
     }
 
     if (password.length < 6) {
@@ -18,12 +19,26 @@ async function register(req, res) {
     // Dev-only: keep plaintext to simplify local demo setup.
     const passwordHash = password;
 
-    const result = await query(
-      `INSERT INTO users (student_code, password_hash, role)
-       VALUES ($1, $2, 'student')
-       RETURNING id, student_code, role`,
-      [studentCode, passwordHash]
-    );
+    let result;
+    try {
+      result = await query(
+        `INSERT INTO users (student_code, full_name, password_hash, role)
+         VALUES ($1, $2, $3, 'student')
+         RETURNING id, student_code, full_name, role`,
+        [studentCode, fullName, passwordHash]
+      );
+    } catch (error) {
+      if (error?.code !== '42703') {
+        throw error;
+      }
+
+      result = await query(
+        `INSERT INTO users (student_code, password_hash, role)
+         VALUES ($1, $2, 'student')
+         RETURNING id, student_code, NULL::VARCHAR AS full_name, role`,
+        [studentCode, passwordHash]
+      );
+    }
 
     return ok(res, 'Registered successfully', result.rows[0], 201);
   } catch (error) {
@@ -44,10 +59,22 @@ async function login(req, res) {
       return fail(res, 'Vui lòng nhập MSSV và mật khẩu', 400);
     }
 
-    const result = await query(
-      'SELECT id, student_code, password_hash, role FROM users WHERE student_code = $1',
-      [studentCode]
-    );
+    let result;
+    try {
+      result = await query(
+        'SELECT id, student_code, full_name, password_hash, role FROM users WHERE student_code = $1',
+        [studentCode]
+      );
+    } catch (error) {
+      if (error?.code !== '42703') {
+        throw error;
+      }
+
+      result = await query(
+        'SELECT id, student_code, NULL::VARCHAR AS full_name, password_hash, role FROM users WHERE student_code = $1',
+        [studentCode]
+      );
+    }
 
     const user = result.rows[0];
     if (!user) {
@@ -66,6 +93,7 @@ async function login(req, res) {
       user: {
         id: user.id,
         student_code: user.student_code,
+        full_name: user.full_name,
         role: user.role,
       },
     });

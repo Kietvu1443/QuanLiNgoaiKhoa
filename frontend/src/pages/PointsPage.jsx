@@ -6,6 +6,7 @@ export default function PointsPage() {
   const [totalPoints, setTotalPoints] = useState(0);
   const [activities, setActivities] = useState([]);
   const [message, setMessage] = useState('');
+  const [exporting, setExporting] = useState(false);
 
   const normalizeStatus = (status) => status?.toLowerCase().trim() || '';
 
@@ -24,6 +25,77 @@ export default function PointsPage() {
     if (value === 'error') return 'Lỗi';
     if (value === 'rejected') return 'Từ Chối';
     return status || '-';
+  };
+
+  const parseFilename = (contentDisposition) => {
+    if (!contentDisposition) {
+      return 'certificate.pdf';
+    }
+
+    const utf8Match = contentDisposition.match(/filename\*=UTF-8''([^;]+)/i);
+    if (utf8Match?.[1]) {
+      return decodeURIComponent(utf8Match[1]);
+    }
+
+    const filenameMatch = contentDisposition.match(/filename="?([^";]+)"?/i);
+    if (filenameMatch?.[1]) {
+      return filenameMatch[1];
+    }
+
+    return 'certificate.pdf';
+  };
+
+  const parseBlobErrorMessage = async (blob) => {
+    if (!(blob instanceof Blob)) {
+      return '';
+    }
+
+    try {
+      const text = await blob.text();
+      const data = JSON.parse(text);
+      return String(data?.message || '').trim();
+    } catch {
+      return '';
+    }
+  };
+
+  const exportCertificate = async () => {
+    if (exporting) {
+      return;
+    }
+
+    setExporting(true);
+    setMessage('');
+
+    try {
+      const response = await api.get('/me/certificate', {
+        responseType: 'blob',
+      });
+
+      const contentType = String(response?.headers?.['content-type'] || '').toLowerCase();
+      if (!contentType.includes('application/pdf')) {
+        throw new Error('invalid_pdf_response');
+      }
+
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const filename = parseFilename(response?.headers?.['content-disposition']);
+      const objectUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+
+      link.href = objectUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(objectUrl);
+
+      setMessage('Đã tải chứng chỉ PDF');
+    } catch (error) {
+      const backendMessage = await parseBlobErrorMessage(error?.response?.data);
+      setMessage(backendMessage || 'Không thể xuất chứng chỉ PDF');
+    } finally {
+      setExporting(false);
+    }
   };
 
   useEffect(() => {
@@ -46,6 +118,17 @@ export default function PointsPage() {
         <section className="bg-primary-container rounded-xl p-6 text-on-primary">
           <p className="text-sm">Tổng điểm hiện tại</p>
           <h2 className="font-headline text-5xl font-extrabold">{totalPoints}</h2>
+        </section>
+
+        <section className="flex justify-end">
+          <button
+            type="button"
+            onClick={exportCertificate}
+            disabled={exporting}
+            className="px-5 py-3 bg-primary text-on-primary rounded-full font-semibold disabled:opacity-70"
+          >
+            {exporting ? 'Đang xuất PDF...' : 'Xuất PDF chứng chỉ'}
+          </button>
         </section>
 
         <section className="space-y-3">
