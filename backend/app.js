@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -9,6 +10,7 @@ const port = Number(process.env.PORT || 3000);
 
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const indexRouter = require('./routes/index');
 

@@ -25,6 +25,9 @@ CREATE TABLE activities (
   start_time TIMESTAMPTZ NOT NULL,
   end_time TIMESTAMPTZ NOT NULL,
   points INT NOT NULL DEFAULT 0 CHECK (points >= 0),
+  location_text VARCHAR(255) DEFAULT '',
+  category VARCHAR(100) DEFAULT 'Tất cả',
+  image_url TEXT DEFAULT '',
   created_by INT REFERENCES users(id) ON DELETE SET NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

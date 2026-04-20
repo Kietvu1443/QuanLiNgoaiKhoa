@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import api from '../services/api';
-import { TopAppBar } from '../components';
+import { TopAppBar, ActivityPulse } from '../components';
+import CategoryFilter from '../components/CategoryFilter';
+import ActivityList from '../components/ActivityList';
 
 export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQr, onOpenMonitor }) {
   const [activities, setActivities] = useState([]);
@@ -8,6 +10,8 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
   const [message, setMessage] = useState('');
   const [registeringIds, setRegisteringIds] = useState([]);
   const [registeredIds, setRegisteredIds] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('Tất cả');
+  const [categories, setCategories] = useState(['Tất cả']);
 
   const fetchActivities = async () => {
     try {
@@ -20,8 +24,19 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const response = await api.get('/activities/categories');
+      const serverCats = response.data.data || [];
+      setCategories(['Tất cả', ...serverCats]);
+    } catch {
+      // Fallback: keep just 'Tất cả'
+    }
+  };
+
   useEffect(() => {
     fetchActivities();
+    fetchCategories();
   }, []);
 
   const registerActivity = async (activityId) => {
@@ -48,62 +63,69 @@ export default function ActivityPage({ user, onOpenCreateActivity, onOpenCreateQ
     }
   };
 
-  return (
-    <div>
-      <TopAppBar title="Hoạt động" />
-      <main className="pt-24 pb-32 px-6 max-w-5xl mx-auto">
-        <section className="mb-6 p-6 bg-primary-container rounded-xl text-on-primary">
-          <p className="text-sm opacity-90">Xin chào</p>
-          <h2 className="font-headline text-2xl font-bold">{user?.student_code || 'Sinh viên'}</h2>
-        </section>
+  const filteredActivities = selectedCategory === 'Tất cả' 
+    ? activities 
+    : activities.filter(a => a.category === selectedCategory);
 
-        {user?.role === 'admin' ? (
+  return (
+    <div className="bg-surface font-body text-on-surface min-h-screen">
+      <TopAppBar title="Hoạt động" profileImg="https://lh3.googleusercontent.com/aida-public/AB6AXuCW-z9DWtzK_alEgry37mBOdIpfA3W307QuXcvB2eLOxN1txcAKnTYC5ISKyFDm70365-aUSTspzqPQIemCS78BJK0BPTD5OPLePIC1DbuW3JvHO_7koOMWGXBde6fzyi3Y0jOsrhdWJoa4IDNDQwbd4G1u0GEvHNaITF9Q5WSEtYzqCkzAOODXUBGf2sx_82HPd0pqx1PV1OhY55hsNPgexlhTxw_Uujj83mv-zAT3TyJy1qC7v5UtRAAXHgQP04ytnSyflfdtoXk" />
+      
+      <main className="pt-20 pb-32 px-6 max-w-7xl mx-auto">
+        
+        {/* Admin controls */}
+        {user?.role === 'admin' && (
           <section className="mb-8 flex gap-3 flex-wrap">
-            <button onClick={onOpenCreateActivity} className="px-5 py-3 bg-primary text-on-primary rounded-full font-semibold" type="button">
+            <button onClick={onOpenCreateActivity} className="px-5 py-3 bg-primary text-white rounded-full font-label font-bold text-sm shadow-sm hover:bg-primary-container transition-colors" type="button">
               Tạo hoạt động
             </button>
-            <button onClick={onOpenCreateQr} className="px-5 py-3 bg-secondary-container text-on-secondary-container rounded-full font-semibold" type="button">
+            <button onClick={onOpenCreateQr} className="px-5 py-3 bg-secondary-container text-on-secondary-container rounded-full font-label font-bold text-sm shadow-sm transition-colors" type="button">
               Tạo mã QR
             </button>
-            <button onClick={onOpenMonitor} className="px-5 py-3 bg-tertiary text-on-tertiary rounded-full font-semibold" type="button">
+            <button onClick={onOpenMonitor} className="px-5 py-3 bg-tertiary text-on-tertiary rounded-full font-label font-bold text-sm shadow-sm transition-colors" type="button">
               Xác minh điểm danh
             </button>
           </section>
-        ) : null}
+        )}
 
-        {message ? <p className="mb-4 text-sm text-primary">{message}</p> : null}
+        {message && (
+          <div className="mb-6 p-4 bg-secondary-container text-on-secondary-container rounded-lg text-sm font-medium">
+            {message}
+          </div>
+        )}
+
+        {/* Hero Section: Stats Pulse */}
+        <section className="mb-10">
+          <div className="bg-primary-container p-6 rounded-xl text-on-primary-container flex justify-between items-end editorial-shadow">
+            <div className="space-y-1">
+              <p className="text-sm font-label uppercase tracking-widest text-primary-fixed-dim/80">
+                Tiến độ tuần này
+              </p>
+              <h2 className="text-3xl font-headline font-extrabold text-white">12 giờ</h2>
+            </div>
+            <ActivityPulse />
+          </div>
+        </section>
+
+        {/* Category Filters */}
+        <CategoryFilter 
+          categories={categories} 
+          selectedCategory={selectedCategory} 
+          onSelectCategory={setSelectedCategory} 
+        />
 
         {loading ? (
-          <p>Đang tải danh sách...</p>
+          <div className="flex justify-center items-center py-20 text-on-surface-variant">
+            <p>Đang tải danh sách...</p>
+          </div>
         ) : (
-          <section className="grid gap-4">
-            {activities.map((item) => (
-              <article key={item.id} className="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
-                <h3 className="font-headline text-xl font-bold text-on-surface mb-2">{item.title}</h3>
-                <p className="text-on-surface-variant text-sm mb-4">{item.description}</p>
-                <p className="text-xs text-on-surface-variant mb-4">
-                  {new Date(item.start_time).toLocaleString()} - {new Date(item.end_time).toLocaleString()}
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-primary font-bold">+{item.points} Điểm</span>
-                  {user?.role === 'admin' ? null : (
-                    <button
-                      onClick={() => registerActivity(item.id)}
-                      disabled={registeringIds.includes(item.id) || registeredIds.includes(item.id)}
-                      className="px-4 py-2 bg-primary text-on-primary rounded-full text-sm font-semibold"
-                      type="button"
-                    >
-                      {registeredIds.includes(item.id)
-                        ? 'Đã đăng ký'
-                        : registeringIds.includes(item.id)
-                          ? 'Đang đăng ký...'
-                          : 'Đăng ký'}
-                    </button>
-                  )}
-                </div>
-              </article>
-            ))}
-          </section>
+          <ActivityList 
+            activities={filteredActivities} 
+            registeredIds={registeredIds} 
+            registeringIds={registeringIds} 
+            onRegister={registerActivity} 
+            isAdmin={user?.role === 'admin'} 
+          />
         )}
       </main>
     </div>

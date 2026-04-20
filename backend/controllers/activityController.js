@@ -4,7 +4,7 @@ const { ok, fail } = require('../utils/response');
 async function listActivities(_req, res) {
   try {
     const result = await query(
-      `SELECT id, title, description, latitude, longitude, start_time, end_time, points
+      `SELECT id, title, description, latitude, longitude, location_text, category, image_url, start_time, end_time, points
        FROM activities
        ORDER BY start_time ASC`
     );
@@ -25,6 +25,9 @@ async function createActivity(req, res) {
       start_time: startTime,
       end_time: endTime,
       points,
+      location_text,
+      category,
+      image_url,
     } = req.body;
 
     if (!title || latitude === undefined || longitude === undefined || !startTime || !endTime) {
@@ -41,10 +44,10 @@ async function createActivity(req, res) {
 
     const result = await query(
       `INSERT INTO activities
-       (title, description, latitude, longitude, start_time, end_time, points, created_by)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-       RETURNING id, title, description, latitude, longitude, start_time, end_time, points`,
-      [title, description || '', lat, lng, startTime, endTime, activityPoints, req.user.id]
+       (title, description, latitude, longitude, location_text, category, image_url, start_time, end_time, points, created_by)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+       RETURNING id, title, description, latitude, longitude, location_text, category, image_url, start_time, end_time, points`,
+      [title, description || '', lat, lng, (location_text && location_text.trim()) || 'Chưa cập nhật', category || 'Tất cả', image_url || '', startTime, endTime, activityPoints, req.user.id]
     );
 
     return ok(res, 'Activity created', result.rows[0], 201);
@@ -90,8 +93,24 @@ async function registerActivity(req, res) {
   }
 }
 
+async function getCategories(_req, res) {
+  try {
+    const result = await query(
+      `SELECT DISTINCT category FROM activities
+       WHERE category IS NOT NULL AND category != ''
+       ORDER BY category ASC`
+    );
+
+    const categories = result.rows.map((row) => row.category);
+    return ok(res, 'Categories fetched', categories);
+  } catch (_error) {
+    return fail(res, 'Internal server error', 500);
+  }
+}
+
 module.exports = {
   listActivities,
   createActivity,
   registerActivity,
+  getCategories,
 };
