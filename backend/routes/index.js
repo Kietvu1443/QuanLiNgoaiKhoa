@@ -5,6 +5,7 @@ const activitiesRouter = require('./activities');
 const qrRouter = require('./qr');
 const attendanceRouter = require('./attendance');
 const adminAttendanceRouter = require('./adminAttendance');
+const adminStatsRouter = require('./adminStats');
 const meRouter = require('./me');
 
 const router = express.Router();
@@ -22,6 +23,7 @@ router.use('/activities', activitiesRouter);
 router.use('/qr', qrRouter);
 router.use('/attendance', attendanceRouter);
 router.use('/admin/attendance', adminAttendanceRouter);
+router.use('/admin/stats', adminStatsRouter);
 router.use('/me', meRouter);
 
 module.exports = router;

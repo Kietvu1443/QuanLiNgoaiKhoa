@@ -347,8 +347,59 @@ async function getCertificate(req, res) {
   }
 }
 
+async function getWeeklyStats(req, res) {
+  try {
+    const result = await query(
+      `SELECT COUNT(DISTINCT activity_id)::int AS activities_count
+       FROM attendances
+       WHERE user_id = $1
+         AND status = 'approved'
+         AND created_at >= date_trunc('week', NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh')
+         AND created_at < date_trunc('week', NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh') + interval '7 days'`,
+      [req.user.id]
+    );
+
+    return ok(res, 'Weekly stats fetched', {
+      activities_count: result.rows[0]?.activities_count || 0,
+    });
+  } catch (_error) {
+    return fail(res, 'Internal server error', 500);
+  }
+}
+
+async function getStats(req, res) {
+  try {
+    const result = await query(
+      `SELECT
+         a.title,
+         ph.points,
+         att.attended_at
+       FROM points_history ph
+       JOIN activities a ON a.id = ph.activity_id
+       LEFT JOIN LATERAL (
+         SELECT at2.created_at AS attended_at
+         FROM attendances at2
+         WHERE at2.user_id = ph.user_id
+           AND at2.activity_id = ph.activity_id
+           AND at2.status = 'approved'
+         ORDER BY at2.created_at DESC
+         LIMIT 1
+       ) att ON true
+       WHERE ph.user_id = $1
+       ORDER BY ph.points DESC`,
+      [req.user.id]
+    );
+
+    return ok(res, 'Stats fetched', { activities: result.rows });
+  } catch (_error) {
+    return fail(res, 'Internal server error', 500);
+  }
+}
+
 module.exports = {
   getPoints,
   getActivities,
   getCertificate,
+  getWeeklyStats,
+  getStats,
 };

@@ -8,6 +8,7 @@ import QrScanPage from './pages/QrScanPage';
 import PointsPage from './pages/PointsPage';
 import AccountInfoPage from './pages/AccountInfoPage';
 import AdminAttendancePage from './pages/AdminAttendancePage';
+import AdminDashboardPage from './pages/AdminDashboardPage';
 import { BottomNav } from './components';
 
 export default function App() {
@@ -69,12 +70,17 @@ export default function App() {
       return <AdminAttendancePage onBack={() => setActivityView('list')} />;
     }
 
+    if (activityView === 'admin-dashboard') {
+      return <AdminDashboardPage onBack={() => setActivityView('list')} />;
+    }
+
     return (
       <ActivityPage
         user={user}
         onOpenCreateActivity={() => setActivityView('create-activity')}
         onOpenCreateQr={() => setActivityView('create-qr')}
         onOpenMonitor={() => setActivityView('attendance-verify')}
+        onOpenAdminDashboard={() => setActivityView('admin-dashboard')}
       />
     );
   };
