@@ -183,12 +183,12 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Category"
-  /api/qr/create:
+  /api/qr/generate:
     post:
       summary: Tạo QR cho hoạt động
       security:
         - bearerAuth: []
-      tags: [qr]
+      tags: [QR]
       requestBody:
         required: true
         content:
@@ -205,6 +205,28 @@ paths:
       responses:
         200:
           description: QR tạo thành công
+  /api/qr/scan:
+    post:
+      summary: Quét QR để điểm danh
+      security:
+        - bearerAuth: []
+      tags: [QR]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  description: Token để xác thực qr
+                  example: 535f4edab2d44b53037cf78ff0e637666f70cbce1f1ab37e
+      responses:
+        200:
+          description: Điểm danh thành công
   /api/me/points:
     get:
       summary: Lấy danh sách hoạt động

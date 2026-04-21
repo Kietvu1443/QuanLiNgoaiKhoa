@@ -12,16 +12,30 @@ export default function ActivityCard({
 }) {
   const isLarge = index !== undefined && (index + 1) % 3 === 0;
 
-  const date = new Date(activity.start_time);
-  const formattedDate = date.toLocaleDateString('vi-VN', {
+  const now = new Date();
+  const startTime = new Date(activity.start_time);
+  const endTime = new Date(activity.end_time);
+  
+  const isExpired = now > endTime;
+  const isNotStarted = now < startTime;
+  const isNearExpiry = !isExpired && (endTime - now < 24 * 60 * 60 * 1000);
+
+  const formattedDate = startTime.toLocaleDateString('vi-VN', {
     day: '2-digit',
     month: 'long',
     year: 'numeric'
   });
-  const formattedTime = date.toLocaleTimeString('vi-VN', {
+  const formattedTime = startTime.toLocaleTimeString('vi-VN', {
     hour: '2-digit',
     minute: '2-digit'
   });
+
+  let timeDisplay = `${formattedDate} • ${formattedTime}`;
+  if (isExpired) {
+    timeDisplay = 'Hết hạn';
+  } else if (isNearExpiry && !isNotStarted) {
+    timeDisplay = 'Sắp kết thúc';
+  }
 
   return (
     <div className={`group bg-surface-container-lowest rounded-xl overflow-hidden editorial-shadow flex flex-col ${isLarge ? 'md:col-span-2 md:flex-row' : ''}`}>
@@ -47,7 +61,7 @@ export default function ActivityCard({
           <div className={`${isLarge ? 'grid grid-cols-2 gap-4' : 'space-y-2'} mb-6`}>
              <div className="flex items-center gap-3 text-on-surface-variant text-sm">
                <span className="material-symbols-outlined text-lg">calendar_today</span>
-               <span>{formattedDate} • {formattedTime}</span>
+               <span className={isExpired ? 'text-error font-bold' : isNearExpiry && !isNotStarted ? 'text-tertiary font-bold' : ''}>{timeDisplay}</span>
              </div>
              <div className="flex items-center gap-3 text-on-surface-variant text-sm mt-2 md:mt-0">
                <span className="material-symbols-outlined text-lg">location_on</span>
@@ -63,16 +77,36 @@ export default function ActivityCard({
         {!isAdmin && (
           <button
             onClick={() => onRegister(activity.id)}
-            disabled={isRegistered || isRegistering}
+            disabled={
+              isRegistered ||
+              isRegistering ||
+              new Date() > new Date(activity.end_time) ||
+              new Date() < new Date(activity.start_time) ||
+              activity.is_full // Optional if I manage to track this
+            }
             className={`w-full py-3 rounded-full font-label font-bold text-sm transition-all active:scale-[0.98] ${
               isLarge ? 'md:w-max px-12' : ''
             } ${
               isRegistered
                 ? 'bg-secondary-container text-on-secondary-container'
+                : new Date() > new Date(activity.end_time) || new Date() < new Date(activity.start_time)
+                ? 'bg-surface-variant text-on-surface-variant cursor-not-allowed'
                 : 'bg-primary text-white hover:bg-primary-container'
             }`}
           >
-            {isRegistered ? 'Đã đăng ký' : isRegistering ? 'Đang đăng ký...' : 'Tham gia'}
+            {isRegistering
+              ? 'Đang đăng ký...'
+              : new Date() > new Date(activity.end_time)
+              ? 'Đã hết hạn'
+              : new Date() < new Date(activity.start_time)
+              ? 'Chưa bắt đầu'
+              : activity.is_full
+              ? 'Đã đủ người'
+              : activity.user_status === 'approved'
+              ? 'Hoàn thành'
+              : activity.user_status === 'pending' || isRegistered
+              ? 'Chờ xác minh'
+              : 'Tham gia'}
           </button>
         )}
       </div>

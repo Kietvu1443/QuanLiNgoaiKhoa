@@ -45,7 +45,7 @@ async function scanAttendance(req, res) {
     await client.query("BEGIN");
 
     const qrResult = await client.query(
-      `SELECT qt.id, qt.activity_id, qt.expires_at, a.latitude AS activity_lat, a.longitude AS activity_lng, a.points
+      `SELECT qt.id, qt.activity_id, qt.expires_at, a.start_time, a.end_time, a.latitude AS activity_lat, a.longitude AS activity_lng, a.points
        FROM qr_tokens qt
        JOIN activities a ON a.id = qt.activity_id
        WHERE qt.token = $1`,
@@ -58,10 +58,21 @@ async function scanAttendance(req, res) {
     }
 
     const qr = qrResult.rows[0];
+    const now = new Date();
 
-    if (new Date(qr.expires_at).getTime() < Date.now()) {
+    if (new Date(qr.expires_at) < now) {
       await client.query("ROLLBACK");
       return fail(res, "QR token hết hạn", 400);
+    }
+
+    if (new Date(qr.end_time) < now) {
+      await client.query("ROLLBACK");
+      return fail(res, "Hoạt động đã hết hạn", 400);
+    }
+
+    if (new Date(qr.start_time) > now) {
+      await client.query("ROLLBACK");
+      return fail(res, "Hoạt động chưa bắt đầu", 400);
     }
 
     const registrationResult = await client.query(
@@ -71,7 +82,7 @@ async function scanAttendance(req, res) {
 
     if (registrationResult.rowCount === 0) {
       await client.query("ROLLBACK");
-      return fail(res, "Bạn chưa đăng kí hoạt động này", 400);
+      return fail(res, "Bạn chưa đăng ký hoạt động", 400);
     }
 
     const attendedResult = await client.query(
@@ -81,7 +92,7 @@ async function scanAttendance(req, res) {
 
     if (attendedResult.rowCount > 0) {
       await client.query("ROLLBACK");
-      return fail(res, "Bạn đã đăng kí hoạt động này rồi", 409);
+      return fail(res, "Bạn đã điểm danh rồi", 409);
     }
 
     let status = "pending";

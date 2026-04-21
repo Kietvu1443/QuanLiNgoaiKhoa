@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { Html5Qrcode, Html5QrcodeScannerState } from 'html5-qrcode';
-import api from '../services/api';
+import { useEffect, useRef, useState } from "react";
+import { Html5Qrcode, Html5QrcodeScannerState } from "html5-qrcode";
+import api from "../services/api";
 
 export default function QrScanPage({ onClose }) {
   const scannerRef = useRef(null);
@@ -12,18 +12,18 @@ export default function QrScanPage({ onClose }) {
   const isClosingRef = useRef(false);
   const deferredStopRef = useRef(null);
 
-  const GPS_TIMEOUT_MS = 1500;
+  const GPS_TIMEOUT_MS = 7000;
   const AUTO_CLOSE_DELAY_MS = 2200;
   const TOAST_HIDE_DELAY_MS = 3000;
 
-  const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
   const [hasLocation, setHasLocation] = useState(false);
   const [loading, setLoading] = useState(false);
   const [scanning, setScanning] = useState(false);
   const [status, setStatus] = useState(null);
 
-  const scannerElementId = 'qr-reader';
+  const scannerElementId = "qr-reader";
   const SCAN_FRAME_SIZE_PX = 250;
 
   const setScanningSafe = (value) => {
@@ -46,7 +46,10 @@ export default function QrScanPage({ onClose }) {
     stopPromiseRef.current = (async () => {
       try {
         const state = scanner.getState?.();
-        if (state === Html5QrcodeScannerState.SCANNING || state === Html5QrcodeScannerState.PAUSED) {
+        if (
+          state === Html5QrcodeScannerState.SCANNING ||
+          state === Html5QrcodeScannerState.PAUSED
+        ) {
           await scanner.stop();
         }
       } catch {
@@ -86,28 +89,31 @@ export default function QrScanPage({ onClose }) {
     }, TOAST_HIDE_DELAY_MS);
   };
 
-  useEffect(() => () => {
-    isMountedRef.current = false;
+  useEffect(
+    () => () => {
+      isMountedRef.current = false;
 
-    if (closeTimerRef.current) {
-      clearTimeout(closeTimerRef.current);
-      closeTimerRef.current = null;
-    }
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current);
+        closeTimerRef.current = null;
+      }
 
-    if (statusTimerRef.current) {
-      clearTimeout(statusTimerRef.current);
-      statusTimerRef.current = null;
-    }
+      if (statusTimerRef.current) {
+        clearTimeout(statusTimerRef.current);
+        statusTimerRef.current = null;
+      }
 
-    if (deferredStopRef.current) {
-      clearTimeout(deferredStopRef.current);
-      deferredStopRef.current = null;
-    }
+      if (deferredStopRef.current) {
+        clearTimeout(deferredStopRef.current);
+        deferredStopRef.current = null;
+      }
 
-    if (!isClosingRef.current && scannerRef.current) {
-      void stopAndClearScanner();
-    }
-  }, []);
+      if (!isClosingRef.current && scannerRef.current) {
+        void stopAndClearScanner();
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -118,12 +124,12 @@ export default function QrScanPage({ onClose }) {
   }, []);
 
   const extractToken = (rawValue) => {
-    const value = String(rawValue || '').trim();
-    if (!value) return '';
+    const value = String(rawValue || "").trim();
+    if (!value) return "";
 
     try {
       const url = new URL(value);
-      const tokenFromQuery = url.searchParams.get('token');
+      const tokenFromQuery = url.searchParams.get("token");
       return tokenFromQuery ? tokenFromQuery.trim() : value;
     } catch {
       return value;
@@ -134,39 +140,40 @@ export default function QrScanPage({ onClose }) {
     await stopAndClearScanner();
   };
 
-  const resolveLocationForScan = () => new Promise((resolve) => {
-    if (hasLocation && lat && lng) {
-      resolve({ lat, lng, hasLocation: true });
-      return;
-    }
-
-    if (!navigator.geolocation) {
-      resolve({ lat: null, lng: null, hasLocation: false });
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const nextLat = position.coords.latitude.toString();
-        const nextLng = position.coords.longitude.toString();
-        setLat(nextLat);
-        setLng(nextLng);
-        setHasLocation(true);
-        resolve({
-          lat: nextLat,
-          lng: nextLng,
-          hasLocation: true,
-        });
-      },
-      () => {
-        resolve({ lat: null, lng: null, hasLocation: false });
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: GPS_TIMEOUT_MS,
+  const resolveLocationForScan = () =>
+    new Promise((resolve) => {
+      if (hasLocation && lat && lng) {
+        resolve({ lat, lng, hasLocation: true });
+        return;
       }
-    );
-  });
+
+      if (!navigator.geolocation) {
+        resolve({ lat: null, lng: null, hasLocation: false });
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const nextLat = position.coords.latitude.toString();
+          const nextLng = position.coords.longitude.toString();
+          setLat(nextLat);
+          setLng(nextLng);
+          setHasLocation(true);
+          resolve({
+            lat: nextLat,
+            lng: nextLng,
+            hasLocation: true,
+          });
+        },
+        () => {
+          resolve({ lat: null, lng: null, hasLocation: false });
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: GPS_TIMEOUT_MS,
+        },
+      );
+    });
 
   const closeAfterDelay = () => {
     if (closeTimerRef.current) {
@@ -181,61 +188,69 @@ export default function QrScanPage({ onClose }) {
   };
 
   const resolveStatusType = (message, isSuccess) => {
-    if (isSuccess) return 'success';
-    const lower = String(message || '').toLowerCase();
+    if (isSuccess) return "success";
+    const lower = String(message || "").toLowerCase();
     if (
-      lower.includes('vi tri')
-      || lower.includes('vị trí')
-      || lower.includes('xác minh')
-      || lower.includes('xac minh')
-      || lower.includes('pending')
-      || lower.includes('chờ xác minh')
+      lower.includes("vi tri") ||
+      lower.includes("vị trí") ||
+      lower.includes("xác minh") ||
+      lower.includes("xac minh") ||
+      lower.includes("pending") ||
+      lower.includes("chờ xác minh")
     ) {
-      return 'warning';
+      return "warning";
     }
-    return 'error';
+    return "error";
   };
 
   const mapStatusLabel = (value) => {
-    const statusValue = String(value || '').toLowerCase();
-    if (statusValue === 'not_attended') return 'Chưa điểm danh';
-    if (statusValue === 'pending') return 'Chờ xác minh';
-    if (statusValue === 'success') return 'Thành công';
-    if (statusValue === 'error') return 'Lỗi';
+    const statusValue = String(value || "").toLowerCase();
+    if (statusValue === "not_attended") return "Chưa điểm danh";
+    if (statusValue === "pending") return "Chờ xác minh";
+    if (statusValue === "success") return "Thành công";
+    if (statusValue === "error") return "Lỗi";
     return value;
   };
 
   const localizeApiMessage = (value) => {
-    const message = String(value || '').trim();
-    if (!message) return '';
+    const message = String(value || "").trim();
+    if (!message) return "";
 
     const lower = message.toLowerCase();
 
-    if (lower.includes('invalid token')) return 'Mã QR không hợp lệ';
-    if (lower.includes('expired')) return 'Mã QR đã hết hạn';
-    if (lower.includes('not registered')) return 'Bạn chưa đăng ký hoạt động này';
+    if (lower.includes("invalid token")) return "Mã QR không hợp lệ";
+    if (lower.includes("expired")) return "Mã QR đã hết hạn";
+    if (lower.includes("not registered"))
+      return "Bạn chưa đăng ký hoạt động này";
 
-    if (lower === 'not_attended') return 'Chưa điểm danh';
-    if (lower === 'pending') return 'Chờ xác minh';
-    if (lower === 'success') return 'Thành công';
-    if (lower === 'error') return 'Lỗi';
+    if (lower === "not_attended") return "Chưa điểm danh";
+    if (lower === "pending") return "Chờ xác minh";
+    if (lower === "success") return "Thành công";
+    if (lower === "error") return "Lỗi";
 
-    if (lower.includes('dang quet')) return 'Đang quét';
-    if (lower.includes('gui diem danh')) return 'Gửi điểm danh';
-    if (lower.includes('lay vi tri')) return 'Lấy vị trí';
-    if (lower.includes('dang diem danh')) return 'Đang điểm danh';
+    if (lower.includes("dang quet")) return "Đang quét";
+    if (lower.includes("gui diem danh")) return "Gửi điểm danh";
+    if (lower.includes("lay vi tri")) return "Lấy vị trí";
+    if (lower.includes("dang diem danh")) return "Đang điểm danh";
 
     return message;
   };
 
-  const isVietnameseText = (value) => /[ăâđêôơưáàảãạấầẩẫậắằẳẵặéèẻẽẹếềểễệíìỉĩịóòỏõọốồổỗộớờởỡợúùủũụứừửữựýỳỷỹỵ]/i.test(String(value || ''));
+  const isVietnameseText = (value) =>
+    /[ăâđêôơưáàảãạấầẩẫậắằẳẵặéèẻẽẹếềểễệíìỉĩịóòỏõọốồổỗộớờởỡợúùủũụứừửữựýỳỷỹỵ]/i.test(
+      String(value || ""),
+    );
 
-  const submitAttendance = async (nextToken, locationOverride, options = {}) => {
+  const submitAttendance = async (
+    nextToken,
+    locationOverride,
+    options = {},
+  ) => {
     if (loading) return;
 
-    const submitToken = String(nextToken || '').trim();
+    const submitToken = String(nextToken || "").trim();
     if (!submitToken) {
-      showStatus('error', 'Mã QR không hợp lệ');
+      showStatus("error", "Mã QR không hợp lệ");
       return;
     }
 
@@ -258,24 +273,28 @@ export default function QrScanPage({ onClose }) {
     }
 
     try {
-      const response = await api.post('/attendance/scan', payload);
+      const response = await api.post("/attendance/scan", payload);
       const status = response.data.data?.attendance?.status;
       const localizedStatus = mapStatusLabel(status);
 
-      if (localizedStatus === 'Chờ xác minh') {
-        showStatus('warning', 'Đã ghi nhận, chờ admin xác minh');
+      if (localizedStatus === "Chờ xác minh") {
+        showStatus("warning", "Đã ghi nhận, chờ admin xác minh");
       } else {
-        showStatus('success', 'Điểm danh thành công');
+        showStatus("success", "Điểm danh thành công");
       }
 
       if (shouldAutoClose) {
         closeAfterDelay();
       }
     } catch (error) {
-      const apiMessage = error.response?.data?.message || '';
+      const apiMessage = error.response?.data?.message || "";
       const localizedMessage = localizeApiMessage(apiMessage);
-      const shouldUseLocalized = localizedMessage && (localizedMessage !== apiMessage || isVietnameseText(localizedMessage));
-      const fallbackMessage = shouldUseLocalized ? localizedMessage : 'Có lỗi xảy ra, vui lòng thử lại';
+      const shouldUseLocalized =
+        localizedMessage &&
+        (localizedMessage !== apiMessage || isVietnameseText(localizedMessage));
+      const fallbackMessage = shouldUseLocalized
+        ? localizedMessage
+        : "Có lỗi xảy ra, vui lòng thử lại";
       showStatus(resolveStatusType(fallbackMessage, false), fallbackMessage);
 
       if (shouldAutoClose) {
@@ -300,7 +319,8 @@ export default function QrScanPage({ onClose }) {
   };
 
   const startScanner = async () => {
-    if (scannerRef.current || scanning || loading || isClosingRef.current) return;
+    if (scannerRef.current || scanning || loading || isClosingRef.current)
+      return;
 
     scanHandledRef.current = false;
 
@@ -309,23 +329,26 @@ export default function QrScanPage({ onClose }) {
 
     try {
       await scanner.start(
-        { facingMode: 'environment' },
+        { facingMode: "environment" },
         { fps: 10 },
         handleScanSuccess,
-        () => {}
+        () => {},
       );
       setScanningSafe(true);
     } catch (error) {
       scannerRef.current = null;
       setScanningSafe(false);
-      showStatus('error', localizeApiMessage(error?.message) || 'Không mở được camera');
+      showStatus(
+        "error",
+        localizeApiMessage(error?.message) || "Không mở được camera",
+      );
     }
   };
 
   const getLocation = () => {
     if (!navigator.geolocation) {
       setHasLocation(false);
-      showStatus('warning', 'Trình duyệt không hỗ trợ GPS');
+      showStatus("warning", "Trình duyệt không hỗ trợ GPS");
       return;
     }
 
@@ -334,16 +357,16 @@ export default function QrScanPage({ onClose }) {
         setLat(position.coords.latitude.toString());
         setLng(position.coords.longitude.toString());
         setHasLocation(true);
-        showStatus('success', 'Đã lấy vị trí');
+        showStatus("success", "Đã lấy vị trí");
       },
       () => {
         setHasLocation(false);
-        showStatus('warning', 'Đã ghi nhận, chờ admin xác minh');
+        showStatus("warning", "Đã ghi nhận, chờ admin xác minh");
       },
       {
         enableHighAccuracy: true,
         timeout: GPS_TIMEOUT_MS,
-      }
+      },
     );
   };
 
@@ -368,11 +391,12 @@ export default function QrScanPage({ onClose }) {
     }, 0);
   };
 
-  const statusClasses = status?.type === 'success'
-    ? 'bg-green-600 text-white'
-    : status?.type === 'warning'
-      ? 'bg-yellow-400 text-black'
-      : 'bg-red-600 text-white';
+  const statusClasses =
+    status?.type === "success"
+      ? "bg-green-600 text-white"
+      : status?.type === "warning"
+        ? "bg-yellow-400 text-black"
+        : "bg-red-600 text-white";
 
   return (
     <main className="fixed inset-0 z-40 overflow-hidden bg-black text-white">
@@ -402,7 +426,10 @@ export default function QrScanPage({ onClose }) {
 
         <div
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          style={{ width: `${SCAN_FRAME_SIZE_PX}px`, height: `${SCAN_FRAME_SIZE_PX}px` }}
+          style={{
+            width: `${SCAN_FRAME_SIZE_PX}px`,
+            height: `${SCAN_FRAME_SIZE_PX}px`,
+          }}
         >
           <div className="absolute inset-0 border border-white/30 bg-transparent" />
 
@@ -417,7 +444,11 @@ export default function QrScanPage({ onClose }) {
         </div>
 
         <div className="absolute left-1/2 top-20 -translate-x-1/2 rounded-full bg-black/60 px-4 py-2 text-sm font-semibold text-white">
-          {loading ? 'Đang điểm danh...' : scanning ? 'Đang quét...' : 'Đang mở camera...'}
+          {loading
+            ? "Đang điểm danh..."
+            : scanning
+              ? "Đang quét..."
+              : "Đang mở camera..."}
         </div>
       </div>
 
@@ -433,14 +464,16 @@ export default function QrScanPage({ onClose }) {
       <button
         type="button"
         onClick={getLocation}
-        className={`absolute bottom-6 right-6 z-20 h-14 w-14 rounded-full text-2xl shadow-lg ${hasLocation ? 'bg-emerald-500' : 'bg-gray-500'}`}
+        className={`absolute bottom-6 right-6 z-20 h-14 w-14 rounded-full text-2xl shadow-lg ${hasLocation ? "bg-emerald-500" : "bg-gray-500"}`}
         aria-label="Lấy vị trí"
       >
         📍
       </button>
 
       {status ? (
-        <div className={`fixed bottom-6 left-1/2 z-30 -translate-x-1/2 rounded-xl px-6 py-3 text-sm font-semibold shadow-xl ${statusClasses}`}>
+        <div
+          className={`fixed bottom-6 left-1/2 z-30 -translate-x-1/2 rounded-xl px-6 py-3 text-sm font-semibold shadow-xl ${statusClasses}`}
+        >
           {status.text}
         </div>
       ) : null}

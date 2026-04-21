@@ -48,6 +48,22 @@ async function createActivity(req, res) {
       return fail(res, "Invalid latitude or longitude", 400);
     }
 
+    const sTime = new Date(startTime);
+    const eTime = new Date(endTime);
+    const now = new Date();
+
+    if (sTime >= eTime) {
+      return fail(res, "Thời gian bắt đầu phải trước thời gian kết thúc", 400);
+    }
+
+    if (eTime <= now) {
+      return fail(res, "Thời gian kết thúc phải ở tương lai", 400);
+    }
+
+    if (activityPoints < 0) {
+      return fail(res, "Điểm không hợp lệ", 400);
+    }
+
     const result = await query(
       `INSERT INTO activities
        (title, description, latitude, longitude, location_text, category, image_url, start_time, end_time, points, created_by)
@@ -82,11 +98,52 @@ async function registerActivity(req, res) {
       return fail(res, "Invalid activity id", 400);
     }
 
-    const activity = await query("SELECT id FROM activities WHERE id = $1", [
+    const activityResult = await query("SELECT * FROM activities WHERE id = $1", [
       activityId,
     ]);
-    if (activity.rowCount === 0) {
-      return fail(res, "Activity not found", 404);
+    if (activityResult.rowCount === 0) {
+      return fail(res, "Hoạt động không tồn tại", 404);
+    }
+
+    const activity = activityResult.rows[0];
+    const now = new Date();
+
+    if (new Date(activity.end_time) < now) {
+      return fail(res, "Hoạt động đã hết hạn", 400);
+    }
+
+    if (new Date(activity.start_time) > now) {
+      return fail(res, "Hoạt động chưa bắt đầu", 400);
+    }
+
+    // Check attendance status
+    const attendanceCheck = await query(
+      "SELECT status FROM attendances WHERE user_id = $1 AND activity_id = $2",
+      [req.user.id, activityId]
+    );
+
+    if (attendanceCheck.rowCount > 0 && attendanceCheck.rows[0].status === 'approved') {
+      return fail(res, "Bạn đã hoàn thành hoạt động này", 400);
+    }
+
+    // Check registrations
+    const regCheck = await query(
+      "SELECT 1 FROM registrations WHERE user_id = $1 AND activity_id = $2",
+      [req.user.id, activityId]
+    );
+    if (regCheck.rowCount > 0 || attendanceCheck.rowCount > 0) {
+      return fail(res, "Bạn đã đăng ký hoạt động này", 400);
+    }
+
+    // Check capacity if max_participants exists
+    if (activity.max_participants !== undefined && activity.max_participants !== null) {
+      const regCount = await query(
+        "SELECT COUNT(*) as count FROM registrations WHERE activity_id = $1",
+        [activityId]
+      );
+      if (Number(regCount.rows[0].count) >= activity.max_participants) {
+        return fail(res, "Hoạt động đã đủ số lượng", 400);
+      }
     }
 
     const insertResult = await query(
@@ -98,10 +155,7 @@ async function registerActivity(req, res) {
     );
 
     if (insertResult.rowCount === 0) {
-      return ok(res, "Đã đăng kí hoạt động này rồi", {
-        activity_id: activityId,
-        already_registered: true,
-      });
+      return fail(res, "Bạn đã đăng ký hoạt động này", 400);
     }
 
     return ok(
