@@ -1,20 +1,25 @@
-import { TopAppBar } from '../components';
-
+import { TopAppBar } from "../components";
 
 export default function AccountInfoPage({ user, onLogout }) {
-  const roleLabel = user?.role === 'admin'
-    ? 'Quản trị viên'
-    : user?.role === 'student'
-      ? 'Sinh viên'
-      : user?.role || '-';
+  const roleLabel =
+    user?.role === "admin"
+      ? "Quản trị viên"
+      : user?.role === "student"
+        ? "Sinh viên"
+        : user?.role || "-";
 
   return (
     <div>
       <TopAppBar title="Tài khoản" />
       <main className="pt-24 pb-32 px-6 max-w-xl mx-auto space-y-6">
         <section className="editorial-gradient rounded-xl p-6 text-white">
-          <h2 className="font-headline text-2xl font-bold mb-1">Tài khoản hiện tại</h2>
-          <p className="text-sm opacity-90">MSSV: {user?.student_code || '-'}</p>
+          <h2 className="font-headline text-2xl font-bold mb-1">
+            Tài khoản hiện tại
+          </h2>
+          <p className="text-sm opacity-90">
+            MSSV: {user?.student_code || "-"}
+          </p>
+          <p className="text-sm opacity-90">Họ tên: {user?.full_name || "-"}</p>
           <p className="text-sm opacity-90">Vai trò: {roleLabel}</p>
         </section>
 

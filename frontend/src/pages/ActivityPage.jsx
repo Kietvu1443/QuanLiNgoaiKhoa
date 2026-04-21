@@ -22,8 +22,33 @@ export default function ActivityPage({
 
   const fetchActivities = async () => {
     try {
-      const response = await api.get("/activities");
-      setActivities(response.data.data || []);
+      const [actRes, meActRes] = await Promise.all([
+        api.get("/activities"),
+        api.get("/me/activities").catch(() => ({ data: { data: [] } }))
+      ]);
+
+      const globalActivities = actRes.data.data || [];
+      const userActivities = meActRes.data.data || [];
+
+      const userActMap = {};
+      userActivities.forEach(ua => {
+        userActMap[ua.activity_id] = { status: ua.status };
+      });
+
+      const initializedRegisteredIds = [];
+      const enrichedActivities = globalActivities.map(act => {
+        const ua = userActMap[act.id];
+        if (ua) {
+           initializedRegisteredIds.push(act.id);
+        }
+        return {
+          ...act,
+          user_status: ua ? ua.status : null
+        };
+      });
+
+      setActivities(enrichedActivities);
+      setRegisteredIds(initializedRegisteredIds);
     } catch {
       setMessage("Không thể tải danh sách hoạt động");
     } finally {
@@ -79,12 +104,22 @@ export default function ActivityPage({
       setRegisteredIds((prev) =>
         prev.includes(activityId) ? prev : [...prev, activityId],
       );
+      setActivities((prev) =>
+        prev.map(a => a.id === activityId ? { ...a, user_status: 'pending' } : a)
+      );
     } catch (error) {
-      if (error.response?.status === 409) {
-        setMessage("Bạn đã đăng ký hoạt động này");
-        setRegisteredIds((prev) =>
-          prev.includes(activityId) ? prev : [...prev, activityId],
-        );
+      if (error.response?.status === 409 || error.response?.status === 400) {
+        if (error.response?.data?.message === "Bạn đã đăng ký hoạt động này") {
+           setMessage("Bạn đã đăng ký hoạt động này");
+           setRegisteredIds((prev) =>
+             prev.includes(activityId) ? prev : [...prev, activityId],
+           );
+           setActivities((prev) =>
+             prev.map(a => a.id === activityId && !a.user_status ? { ...a, user_status: 'pending' } : a)
+           );
+        } else {
+           setMessage(error.response?.data?.message || "Đăng ký thất bại");
+        }
         return;
       }
 
