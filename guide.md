@@ -8,3 +8,9 @@ Run Both
     npm run dev
 
 Require run with postagesql
+
+Make sure to install yaml + swagger
+Install yaml 
+    npm install yaml
+Install swagger
+    npm install swagger-ui-express swagger-jsdoc

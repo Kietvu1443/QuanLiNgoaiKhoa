@@ -1,0 +1,324 @@
+openapi: 3.0.0
+info:
+  title: QuanLyNgoaiKhoa API
+  description: Tài liệu API cho dự án Quản Lí Ngoại Khoá
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local server
+paths:
+  /api/auth/register:
+    post:
+      summary: Đăng kí tài khoàn mới
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fullname:
+                  type: string
+                  example: admin@example.com
+                studentcode:
+                  type: string
+                  example: password123
+                role:
+                  type: string
+                  enum: [user, admin]
+                  example: admin
+      responses:
+        200:
+          description: Đăng ký thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /api/auth/login:
+    post:
+      summary: Đăng nhập tài khoản
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                student_code:
+                  type: string
+                  example: sv001
+                password:
+                  type: string
+                  example: 123456
+      responses:
+        200:
+          description: Đăng nhập thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+
+  /api/activities:
+    get:
+      summary: Lấy danh sách hoạt động
+      tags: [activities]
+      responses:
+        200:
+          description: Danh sách hoạt động
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+    post:
+      summary: Tạo hoạt động mới
+      security:
+        - bearerAuth: []
+      tags: [activities]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Hoạt động thử nghiệm
+                description:
+                  type: string
+                  example: Miêu tả hoạt động thử nghiệm
+                latitude:
+                  type: number
+                  format: float
+                  example: 10.762622
+                longitude:
+                  type: number
+                  format: float
+                  example: 106.660172
+                start_time:
+                  type: string
+                  format: date-time
+                  example: "2026-04-21T08:00:00Z"
+                end_time:
+                  type: string
+                  format: date-time
+                  example: "2026-04-21T08:00:00Z"
+                points:
+                  type: integer
+                  example: 100
+                location_text:
+                  type: string
+                  example: Trường Đại học Bình Dương
+                category:
+                  type: string
+                  example: Thể thao
+                image_url:
+                  type: string
+                  format: uri
+                  example: https://example.com/image.jpg
+      responses:
+        200:
+          description: Hoạt động tạo thành công
+  /api/activities/{id}/register:
+    post:
+      summary: Đăng ký tham gia hoạt động
+      security:
+        - bearerAuth: []
+      tags: [activities]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                activityId:
+                  type: integer
+                  example: 1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: Đăng ký thành công
+  /api/activities/categories:
+    get:
+      summary: Lấy danh sách danh mục hoạt động
+      tags: [activities]
+      responses:
+        200:
+          description: Danh mục hoạt động
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+  /api/admin/attendance/pending:
+    get:
+      summary: Lấy danh sách điểm danh
+      security:
+        - bearerAuth: []
+      tags: [adminAttendance]
+      responses:
+        200:
+          description: Danh sách hoạt động
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+  /api/qr/create:
+    post:
+      summary: Tạo QR cho hoạt động
+      security:
+        - bearerAuth: []
+      tags: [qr]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                activity_id:
+                  type: number
+                  example: 10
+                duration_minutes:
+                  type: number
+                  example: 300
+      responses:
+        200:
+          description: QR tạo thành công
+  /api/me/points:
+    get:
+      summary: Lấy danh sách hoạt động
+      security:
+        - bearerAuth: []
+      tags: [me]
+      responses:
+        200:
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+  /api/me/activities:
+    get:
+      summary: Lấy danh sách hoạt động đã tham gia
+      security:
+        - bearerAuth: []
+      tags: [me]
+      responses:
+        200:
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+  /api/me/certificate:
+    get:
+      summary: Lấy danh sách chứng chỉ
+      security:
+        - bearerAuth: []
+      tags: [me]
+      responses:
+        200:
+          description: List of certificates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+  /api/me/weekly-stats:
+    get:
+      summary: Lấy danh sách thống kê tuần
+      security:
+        - bearerAuth: []
+      tags: [me]
+      responses:
+        200:
+          description: List of weekly stats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+  /api/me/stats:
+    get:
+      summary: Lấy danh sách thống kê
+      security:
+        - bearerAuth: []
+      tags: [me]
+      responses:
+        200:
+          description: List of stats
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        image_url:
+          type: string
+        categoryId:
+          type: integer
+    ProductInput:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        image_url:
+          type: string
+        categoryId:
+          type: integer
