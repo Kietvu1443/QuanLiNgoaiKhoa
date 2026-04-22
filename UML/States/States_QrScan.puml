@@ -24,11 +24,10 @@ Validating --> AlreadyChecked : Đã điểm danh
 
 Validating --> CheckingDistance : Có GPS
 CheckingDistance --> TooFar : > 50m
-CheckingDistance --> Success : Hợp lệ
+Validating --> Approved : Hợp lệ (Đúng vị trí)
+Validating --> Pending : Chờ duyệt (Không có GPS)
 
-Validating --> Pending : Không có GPS
-
-Success --> [*]
+Approved --> [*]
 Pending --> [*]
 InvalidQR --> [*]
 ExpiredQR --> [*]

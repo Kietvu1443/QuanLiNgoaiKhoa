@@ -1,0 +1,52 @@
+@startuml FlowXacThucHD
+title Sơ đồ tuần tự - Xác thực hoạt động qua QR & GPS
+
+actor "Sinh viên (User)" as HS
+
+participant "Frontend (React)" as UI
+participant "Backend API (Express)" as API
+database "Database (PostgreSQL)" as DB
+
+HS -> UI : Chọn xác thực hoạt động (Quét mã QR)
+UI -> API : POST /api/attendance/scan (token, GPS)
+
+API -> API : Xác thực JWT Token (authRequired)
+
+alt Token không hợp lệ (Chưa đăng nhập)
+    API --> UI : 401 Unauthorized
+    UI --> HS : Yêu cầu đăng nhập lại
+else Token hợp lệ
+    API -> DB : Lấy thông tin QR & Hoạt động
+    DB --> API : Trả về thông tin (QR expiry, Activity time, Location)
+
+    alt QR không tồn tại / Hết hạn
+        API --> UI : 400 Token không hợp lệ/Hết hạn
+    else Hoạt động chưa bắt đầu / Đã kết thúc
+        API --> UI : 400 Hoạt động không trong thời gian diễn ra
+    else QR & Thời gian hợp lệ
+        API -> DB : Kiểm tra Đăng ký & Trạng thái điểm danh
+        DB --> API : Trả về dữ liệu
+
+        alt Chưa đăng ký hoạt động
+            API --> UI : 400 Bạn chưa đăng ký hoạt động này
+        else Đã điểm danh thành công trước đó
+            API --> UI : 409 Bạn đã điểm danh rồi
+        else Hợp lệ để điểm danh
+            alt Có dữ liệu GPS (has_location = true)
+                API -> API : Tính khoảng cách (Haversine)
+                alt Khoảng cách > 50m
+                    API --> UI : 400 Quá xa nơi diễn ra hoạt động
+                else Khoảng cách <= 50m
+                    API -> DB : Lưu điểm danh (status = 'approved') & Cộng điểm
+                    DB --> API : OK
+                    API --> UI : 200 Điểm danh thành công
+                end
+            else Không có dữ liệu GPS
+                API -> DB : Lưu điểm danh (status = 'pending')
+                DB --> API : OK
+                API --> UI : 200 Đã ghi nhận (Chờ duyệt)
+            end
+        end
+    end
+end
+@enduml

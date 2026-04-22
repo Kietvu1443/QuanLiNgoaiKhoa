@@ -1,0 +1,8 @@
+@startuml
+left to right direction
+actor "Sinh viên" as SV
+
+rectangle "Profile Management" {
+  SV --> (Xem thông tin tài khoản)
+}
+@enduml

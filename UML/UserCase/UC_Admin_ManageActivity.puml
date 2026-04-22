@@ -1,0 +1,10 @@
+@startuml
+left to right direction
+actor "Admin (Giáo viên)" as Admin
+
+rectangle "Quản lý hoạt động" {
+  Admin --> (Tạo hoạt động)
+  (Tạo hoạt động) .> (Nhập thông tin hoạt động) : <<include>>
+  (Tạo hoạt động) .> (Tải ảnh hoạt động) : <<extend>>
+}
+@enduml

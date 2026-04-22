@@ -1,0 +1,11 @@
+@startuml
+left to right direction
+actor "Sinh viên" as SV
+
+rectangle "Điểm danh hoạt động" {
+  SV --> (Quét QR điểm danh)
+  (Quét QR điểm danh) .> (Kiểm tra QR hợp lệ) : <<include>>
+  (Quét QR điểm danh) .> (Kiểm tra thời gian) : <<include>>
+  (Xác thực GPS) ..> (Quét QR điểm danh) : <<extend>>
+}
+@enduml

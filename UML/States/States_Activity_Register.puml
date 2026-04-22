@@ -15,7 +15,13 @@ ShowRegisterButton --> RequireLogin : Bấm "Đăng ký"
 RequireLogin --> [*] : Chuyển sang màn login
 
 ' ===== Đã đăng nhập =====
-LoggedIn --> CheckRegistered
+LoggedIn --> CheckStatus
+
+CheckStatus --> ActivityCompleted : Đã điểm danh (approved)
+CheckStatus --> CheckRegistered : Chưa điểm danh / pending
+
+ActivityCompleted --> ShowCompletedStatus
+ShowCompletedStatus --> [*]
 
 CheckRegistered --> AlreadyRegistered : Đã đăng ký
 CheckRegistered --> NotRegistered : Chưa đăng ký

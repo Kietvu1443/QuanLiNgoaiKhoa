@@ -18,16 +18,19 @@ paths:
             schema:
               type: object
               properties:
-                fullname:
+                full_name:
                   type: string
-                  example: admin@example.com
-                studentcode:
+                  example: helloworld
+                student_code:
+                  type: string
+                  example: sv630
+                password:
                   type: string
                   example: password123
                 role:
                   type: string
                   enum: [user, admin]
-                  example: admin
+                  example: user
       responses:
         200:
           description: Đăng ký thành công
@@ -155,6 +158,26 @@ paths:
       responses:
         200:
           description: Đăng ký thành công
+  /api/activities/upload-image:
+    post:
+      summary: Upload ảnh hoạt động
+      tags: [activities]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                  description: File ảnh tải lên
+      responses:
+        200:
+          description: Upload thành công
   /api/activities/categories:
     get:
       summary: Lấy danh sách danh mục hoạt động
@@ -183,6 +206,38 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Category"
+  /api/admin/attendance/{id}/approve:
+    patch:
+      summary: Duyệt điểm danh chờ
+      tags: [adminAttendance]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: Duyệt thành công
+  /api/admin/attendance/{id}/reject:
+    patch:
+      summary: Từ chối điểm danh chờ
+      tags: [adminAttendance]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: Từ chối thành công
   /api/qr/generate:
     post:
       summary: Tạo QR cho hoạt động
@@ -224,6 +279,42 @@ paths:
                   type: string
                   description: Token để xác thực qr
                   example: 535f4edab2d44b53037cf78ff0e637666f70cbce1f1ab37e
+      responses:
+        200:
+          description: Điểm danh thành công
+  /api/attendance/scan:
+    post:
+      summary: Quét QR điểm danh với GPS
+      tags: [attendance]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  description: Token từ mã QR
+                  example: "qr-token-12345"
+                has_location:
+                  type: boolean
+                  description: Có gửi kèm vị trí GPS không
+                  example: true
+                lat:
+                  type: number
+                  format: float
+                  description: Vĩ độ (nếu có)
+                  example: 10.762622
+                lng:
+                  type: number
+                  format: float
+                  description: Kinh độ (nếu có)
+                  example: 106.660172
       responses:
         200:
           description: Điểm danh thành công
@@ -302,6 +393,31 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Category"
+  /api/admin/stats:
+    get:
+      summary: Lấy thống kê tổng quan (Admin)
+      tags: [adminStats]
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Dữ liệu thống kê
+  /api/admin/stats/activities/{id}/stats:
+    get:
+      summary: Lấy thống kê chi tiết của một hoạt động
+      tags: [adminStats]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: Dữ liệu thống kê hoạt động
 components:
   securitySchemes:
     bearerAuth:

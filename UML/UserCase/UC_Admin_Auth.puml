@@ -1,0 +1,9 @@
+@startuml
+left to right direction
+actor "Admin (Giáo viên)" as Admin
+
+rectangle "Xác thực người dùng" {
+  Admin --> (Đăng nhập)
+  Admin --> (Đăng xuất)
+}
+@enduml

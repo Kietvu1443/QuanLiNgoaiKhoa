@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+actor "Admin (Giáo viên)" as Admin
+
+rectangle "Hệ thống quản lý hoạt động sinh viên" {
+
+  Admin --> (Đăng nhập)
+  Admin --> (Tạo hoạt động)
+  Admin --> (Tạo mã QR cho hoạt động)
+  Admin --> (Xác minh điểm danh)
+  Admin --> (Xem thống kê hoạt động)
+
+  (Tạo hoạt động) .> (Nhập thông tin hoạt động) : <<include>>
+  (Tạo hoạt động) .> (Tải ảnh hoạt động) : <<extend>>
+
+  (Tạo mã QR cho hoạt động) .> (Kiểm tra hoạt động tồn tại) : <<include>>
+  (Tạo mã QR cho hoạt động) .> (Thiết lập thời hạn QR) : <<include>>
+
+  (Xác minh điểm danh) .> (Xem danh sách chờ duyệt) : <<include>>
+  (Xác minh điểm danh) .> (Duyệt điểm danh) : <<include>>
+  (Xác minh điểm danh) .> (Từ chối điểm danh) : <<include>>
+
+  (Xem thống kê hoạt động) .> (Xem số người tham gia) : <<include>>
+  (Xem thống kê hoạt động) .> (Xem chi tiết trạng thái điểm danh) : <<include>>
+
+}
+@enduml

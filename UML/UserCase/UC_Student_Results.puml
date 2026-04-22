@@ -1,0 +1,14 @@
+@startuml
+left to right direction
+actor "Sinh viên" as SV
+
+rectangle "Kết quả & Chứng chỉ" {
+
+  SV --> (Xem điểm tích lũy)
+  SV --> (Xem lịch sử hoạt động)
+  SV --> (Xuất chứng chỉ PDF)
+
+  (Xuất chứng chỉ PDF) ..> (Xem điểm tích lũy) : <<extend>>
+
+}
+@enduml

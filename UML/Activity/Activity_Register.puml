@@ -1,0 +1,46 @@
+@startuml Activity Diagram - Sinh viên xem & đăng ký hoạt động
+title Activity Diagram - Sinh viên xem & đăng ký hoạt động
+start
+
+:Người dùng mở danh sách hoạt động;
+
+:Hệ thống lấy danh sách hoạt động từ DB;
+:Hiển thị danh sách hoạt động;
+
+:Người dùng chọn hoạt động;
+
+if (Đã đăng nhập?) then (Có)
+
+  if (Đã điểm danh thành công trước đó (status=approved)?) then (Có)
+    :Hiển thị thông tin chi tiết;
+    :Hiển thị trạng thái "Hoạt động đã hoàn thành";
+    :Ẩn nút đăng ký;
+    stop
+  elseif (Đã đăng ký hoạt động?) then (Có)
+    :Hiển thị thông tin chi tiết;
+    :Hiển thị trạng thái "Đã đăng ký";
+    :Ẩn nút đăng ký;
+    stop
+  else (Chưa)
+    :Hiển thị thông tin chi tiết;
+    :Hiển thị nút "Đăng ký";
+
+    :Người dùng bấm "Đăng ký";
+    :Lưu đăng ký vào DB;
+
+    :Cập nhật UI → "Đã đăng ký";
+  endif
+
+else (Chưa đăng nhập)
+
+  :Hiển thị thông tin chi tiết;
+  :Hiển thị nút "Đăng ký";
+
+  :Người dùng bấm "Đăng ký";
+  :Yêu cầu đăng nhập;
+  :Chuyển đến màn hình đăng nhập;
+
+endif
+
+stop
+@enduml

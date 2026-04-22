@@ -1,0 +1,48 @@
+@startuml Activity Diagram - Quét QR Điểm Danh
+skinparam ActivityFontSize 12
+skinparam ArrowFontSize 11
+
+start
+
+:Mở chức năng quét QR;
+
+if (Đã đăng nhập?) then (Không)
+  :Yêu cầu đăng nhập;
+  detach
+endif
+
+:Hiển thị Camera & Lấy vị trí GPS;
+note right: has_location = true/false
+
+:Quét mã QR & Gửi Request;
+
+partition "Server xử lý" {
+  if (Token hợp lệ & Chưa hết hạn?) then (Không)
+    :Báo lỗi QR;
+    detach
+  endif
+
+  if (Đã điểm danh trước đó?) then (Có)
+    :Báo lỗi: Đã điểm danh;
+    detach
+  endif
+
+  if (Có dữ liệu GPS?) then (Có)
+    :Tính khoảng cách;
+    if (Trong phạm vi 50m?) then (Đúng)
+      :Status = approved;
+      :Cộng điểm;
+      :Báo thành công;
+    else (Sai)
+      :Báo: Sai vị trí;
+      detach
+    endif
+  else (Không)
+    :Status = pending;
+    :Báo: Chờ duyệt;
+  endif
+}
+
+stop
+@enduml
+

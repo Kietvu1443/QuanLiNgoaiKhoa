@@ -1,0 +1,10 @@
+@startuml
+left to right direction
+actor "Admin (Giáo viên)" as Admin
+
+rectangle "Quản lý mã QR" {
+  Admin --> (Tạo mã QR cho hoạt động)
+  (Tạo mã QR cho hoạt động) .> (Kiểm tra hoạt động tồn tại) : <<include>>
+  (Tạo mã QR cho hoạt động) .> (Thiết lập thời hạn QR) : <<include>>
+}
+@enduml

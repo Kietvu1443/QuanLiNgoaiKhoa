@@ -1,0 +1,9 @@
+@startuml
+left to right direction
+actor "Sinh viên" as SV
+
+rectangle "Đăng kí tham gia hoạt động" {
+  SV --> (Đăng ký tham gia)
+  (Đăng ký tham gia) .> (Xác thực người dùng) : <<include>>
+}
+@enduml

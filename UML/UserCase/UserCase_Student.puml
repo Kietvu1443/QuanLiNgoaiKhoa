@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+
+actor "Sinh viên" as SV
+
+rectangle "Hệ thống quản lý hoạt động ngoại khóa" {
+
+  SV --> (Đăng ký tài khoản)
+  SV --> (Đăng nhập)
+
+  SV --> (Xem hoạt động)
+  (Tìm kiếm / Lọc) ..> (Xem hoạt động) : <<extend>>
+
+  SV --> (Đăng ký tham gia)
+  (Đăng ký tham gia) .> (Đăng nhập) : <<include>>
+
+  SV --> (Quét QR điểm danh)
+  (Quét QR điểm danh) .> (Kiểm tra QR hợp lệ) : <<include>>
+  (Quét QR điểm danh) .> (Kiểm tra thời gian) : <<include>>
+  (Xác thực GPS) ..> (Quét QR điểm danh) : <<extend>>
+
+  SV --> (Xem kết quả)
+  (Xem điểm tích lũy) --|> (Xem kết quả)
+  (Xem lịch sử hoạt động) --|> (Xem kết quả)
+
+  (Xuất chứng chỉ PDF) ..> (Xem điểm tích lũy) : <<extend>>
+
+  SV --> (Xem thông tin tài khoản)
+}
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+left to right direction
+actor "Sinh viên" as SV
+
+rectangle "Xem hoạt động" {
+  SV --> (Xem hoạt động)
+  (Tìm kiếm / Lọc) ..> (Xem hoạt động) : <<extend>>
+}
+@enduml

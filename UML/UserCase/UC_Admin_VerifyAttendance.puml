@@ -1,0 +1,15 @@
+@startuml
+left to right direction
+actor "Admin (Giáo viên)" as Admin
+
+rectangle "Quản lý điểm danh" {
+
+  Admin --> (Xem danh sách chờ duyệt)
+  Admin --> (Duyệt điểm danh)
+  Admin --> (Từ chối điểm danh)
+
+  (Duyệt điểm danh) .> (Xem danh sách chờ duyệt) : <<include>>
+(Từ chối điểm danh) .> (Xem danh sách chờ duyệt) : <<include>>
+
+}
+@enduml

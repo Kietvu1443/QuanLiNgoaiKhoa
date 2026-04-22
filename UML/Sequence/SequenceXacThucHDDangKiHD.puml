@@ -1,0 +1,44 @@
+@startuml FlowDangKiHD
+title Sơ đồ tuần tự - Đăng ký tham gia hoạt động
+
+actor "Sinh viên (User)" as HS
+
+participant "Frontend (React)" as UI
+participant "Backend API (Express)" as API
+database "Database (PostgreSQL)" as DB
+
+HS -> UI : Xem danh sách & Chọn hoạt động
+UI -> API : GET /api/activities
+
+API -> DB : Lấy danh sách hoạt động
+DB --> API : Trả về dữ liệu
+API --> UI : 200 Hiển thị danh sách hoạt động
+
+HS -> UI : Nhấn nút "Đăng ký tham gia"
+UI -> API : POST /api/activities/:id/register
+
+API -> API : Xác thực JWT Token (authRequired)
+
+alt Token không hợp lệ
+    API --> UI : 401 Unauthorized
+else Token hợp lệ
+    API -> DB : Kiểm tra Activity & Status
+    DB --> API : Trả về thông tin (Activity time, Attendance, Reg count)
+
+    alt Hoạt động đã kết thúc
+        API --> UI : 400 Hoạt động đã hết hạn
+    else Đã hoàn thành hoạt động (approved)
+        API --> UI : 400 Bạn đã hoàn thành hoạt động này
+    else Đã đăng ký rồi
+        API --> UI : 400 Bạn đã đăng ký tham gia rồi
+    else Kiểm tra số lượng (max_participants)
+        alt Đã đủ số lượng tham gia
+            API --> UI : 400 Hoạt động đã đủ số lượng
+        else Còn chỗ trống
+            API -> DB : Lưu bản ghi (registrations table)
+            DB --> API : OK
+            API --> UI : 201 Đăng ký thành công
+        end
+    end
+end
+@enduml

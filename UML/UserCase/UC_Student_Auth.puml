@@ -1,0 +1,10 @@
+@startuml
+left to right direction
+actor "Sinh viên" as SV
+
+rectangle "Xác thực người dùng" {
+  SV --> (Đăng ký tài khoản)
+  SV --> (Đăng nhập)
+  SV --> (Đăng xuất)
+}
+@enduml

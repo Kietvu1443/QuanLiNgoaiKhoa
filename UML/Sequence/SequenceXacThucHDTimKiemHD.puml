@@ -1,0 +1,25 @@
+@startuml FlowTimKiemHD
+title Sơ đồ tuần tự - Tìm kiếm & Lọc hoạt động
+
+actor "Sinh viên (User)" as HS
+
+participant "Frontend (React)" as UI
+participant "Backend API (Express)" as API
+database "Database (PostgreSQL)" as DB
+
+HS -> UI : Nhập từ khóa tìm kiếm / Chọn danh mục
+UI -> API : GET /api/activities (với query params nếu có)
+
+API -> DB : Truy vấn danh sách hoạt động
+DB --> API : Trả về dữ liệu (Rows)
+
+alt Có dữ liệu
+    API --> UI : 200 Danh sách hoạt động (JSON)
+    UI -> UI : Frontend lọc & hiển thị kết quả
+    UI --> HS : Hiển thị danh sách hoạt động tương ứng
+else Không có dữ liệu phù hợp
+    API --> UI : 200 Danh sách rỗng []
+    UI --> HS : Thông báo "Không tìm thấy hoạt động"
+end
+
+@enduml

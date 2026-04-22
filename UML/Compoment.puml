@@ -1,0 +1,60 @@
+@startuml
+
+package "Frontend (React)" {
+  [User Interface] as UI
+  [API Client (Axios)] as Client
+}
+
+package "Backend (Express)" {
+
+  [Express Router] as Router
+  [Auth Middleware] as AuthMiddleware
+
+  package "Controllers" {
+    [Auth Controller] as AuthCtrl
+    [Activity Controller] as ActivityCtrl
+    [QR Controller] as QrCtrl
+    [Attendance Controller] as AttCtrl
+    [Me Controller] as MeCtrl
+  }
+
+  [DB Pool (node-pg)] as DB
+  [PDF Generator (PDFKit)] as PDF
+}
+
+database "PostgreSQL" {
+  [Database] as SQL
+}
+
+folder "File System" {
+  [Assets / Fonts] as Assets
+  [Uploads] as Uploads
+}
+
+' ===== Flow =====
+
+UI --> Client
+Client --> Router : REST API
+
+Router --> AuthMiddleware
+AuthMiddleware --> AuthCtrl
+AuthMiddleware --> ActivityCtrl
+AuthMiddleware --> QrCtrl
+AuthMiddleware --> AttCtrl
+AuthMiddleware --> MeCtrl
+
+' Controller -> DB trực tiếp (đúng với project ông)
+AuthCtrl --> DB
+ActivityCtrl --> DB
+QrCtrl --> DB
+AttCtrl --> DB
+MeCtrl --> DB
+
+DB --> SQL : SQL Query
+
+' Extra
+ActivityCtrl --> Uploads : store image
+MeCtrl --> PDF : generate certificate
+PDF --> Assets : load fonts
+
+@enduml

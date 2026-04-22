@@ -1,0 +1,10 @@
+@startuml
+left to right direction
+actor "Admin (Giáo viên)" as Admin
+
+rectangle "Thống kê hoạt động" {
+  Admin --> (Xem thống kê hoạt động)
+  (Xem thống kê hoạt động) .> (Xem số người tham gia) : <<include>>
+  (Xem thống kê hoạt động) .> (Xem chi tiết trạng thái điểm danh) : <<include>>
+}
+@enduml

@@ -1,0 +1,80 @@
+@startuml
+
+package "Domain Model" {
+
+  class User {
+    + id: int
+    + student_code: string
+    + full_name: string
+    + password_hash: string
+    + role: string
+    + created_at: datetime
+  }
+
+  class Activity {
+    + id: int
+    + title: string
+    + description: text
+    + latitude: double
+    + longitude: double
+    + start_time: datetime
+    + end_time: datetime
+    + points: int
+    + location_text: string
+    + category: string
+    + image_url: text
+    + created_at: datetime
+  }
+
+  class Registration {
+    + id: int
+    + user_id: int
+    + activity_id: int
+    + created_at: datetime
+  }
+
+  class QrToken {
+    + id: int
+    + activity_id: int
+    + token: string
+    + expires_at: datetime
+    + created_at: datetime
+  }
+
+  class Attendance {
+    + id: int
+    + user_id: int
+    + activity_id: int
+    + status: string
+    + latitude: double
+    + longitude: double
+    + created_at: datetime
+  }
+
+  class PointsHistory {
+    + id: int
+    + user_id: int
+    + activity_id: int
+    + points: int
+    + created_at: datetime
+  }
+
+}
+
+' ===== Relationships =====
+
+User "1" -- "many" Activity : creates
+User "1" -- "many" Registration
+Activity "1" -- "many" Registration
+
+Activity "1" -- "many" QrToken
+
+User "1" -- "many" Attendance
+Activity "1" -- "many" Attendance
+
+User "1" -- "many" PointsHistory
+Activity "1" -- "many" PointsHistory
+
+Attendance ..> Registration : requires
+
+@enduml
